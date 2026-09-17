@@ -1,26 +1,359 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Estedad';
+  src: url('../assets/fonts/Estedad.woff2');
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-sans: "Estedad", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-latin: "Estedad", "Segoe UI", Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar{
+    background-color: white;
+    width: 9px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #87c2fd;
+    border-radius: 4px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #38bdf8;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pattern-fade {
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, black 30%, transparent 75%);
+}
+
+.anim-float {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+.anim-pop {
+  animation: pop-soft 2.8s ease-in-out infinite;
+}
+
+.anim-travel {
+  animation: travel-x 3.6s ease-in-out infinite alternate;
+}
+
+.anim-node {
+  animation: node-pulse 3.6s ease-in-out infinite;
+  animation-delay: var(--node-delay, 0ms);
+}
+
+.anim-draw {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: check-draw 3s ease-in-out infinite;
+}
+
+.anim-dot {
+  transform: scale(0.3);
+  opacity: 0.35;
+  animation: dot-fill 2.8s ease-in-out infinite;
+  animation-delay: var(--dot-delay, 0ms);
+}
+
+.anim-bubble {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: bubble-cycle 4.5s ease-in-out infinite;
+  animation-delay: var(--bubble-delay, 0ms);
+}
+
+.anim-swap-a {
+  animation: swap-a 6s ease-in-out infinite;
+}
+
+.anim-swap-b {
+  animation: swap-b 6s ease-in-out infinite;
+}
+
+.anim-twinkle {
+  animation: twinkle 2.4s ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0ms);
+}
+
+.anim-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.2s ease-in-out infinite;
+}
+
+.anim-wave {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: wave 2.2s ease-in-out infinite;
+}
+
+.anim-caret {
+  animation: caret-blink 1s step-end infinite;
+}
+
+.anim-travel-down {
+  animation: travel-down 6s ease-in-out infinite alternate;
+}
+
+.pause-offscreen .anim-travel,
+.pause-offscreen .anim-travel-down {
+  animation-play-state: paused;
+}
+
+.pause-offscreen.is-live .anim-travel,
+.pause-offscreen.is-live .anim-travel-down {
+  animation-play-state: running;
+}
+
+.tilt-pop {
+  transform: translateZ(35px);
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pop-soft {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes travel-x {
+  from {
+    margin-inline-start: 0;
+  }
+  to {
+    margin-inline-start: calc(100% - 1.5rem);
+  }
+}
+
+@keyframes node-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  12% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+}
+
+@keyframes check-draw {
+  0%,
+  15% {
+    stroke-dashoffset: 24;
+  }
+  45%,
+  75% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dot-fill {
+  0%,
+  100% {
+    transform: scale(0.3);
+    opacity: 0.35;
+  }
+  30%,
+  70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bubble-cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  12%,
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  95%,
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes swap-a {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes swap-b {
+  0%,
+  45% {
+    opacity: 0.25;
+  }
+  55%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  91%,
+  100% {
+    transform: scaleY(1);
+  }
+  94%,
+  96% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes travel-down {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 1.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .anim-float,
+  .anim-pop,
+  .anim-travel,
+  .anim-node,
+  .anim-draw,
+  .anim-dot,
+  .anim-bubble,
+  .anim-swap-a,
+  .anim-swap-b,
+  .anim-twinkle,
+  .anim-blink,
+  .anim-wave,
+  .anim-caret,
+  .anim-travel-down {
+    animation: none;
+  }
+  .anim-draw {
+    stroke-dashoffset: 0;
+  }
+  .anim-dot {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .anim-bubble {
+    opacity: 1;
+    transform: none;
+  }
+  .anim-swap-a,
+  .anim-swap-b {
+    opacity: 1;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
