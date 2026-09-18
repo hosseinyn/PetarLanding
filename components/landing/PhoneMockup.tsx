@@ -114,7 +114,7 @@ export default function PhoneMockup() {
 
   return (
     <section id="app" aria-label="اپلیکیشن موبایل پلتفرم تدریس اسلامی رستادی" className="scroll-mt-24 overflow-hidden border-t border-gray-200 bg-green-50">
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
         <Reveal>
           <SectionHeading
             accent="green"
@@ -125,11 +125,11 @@ export default function PhoneMockup() {
             title="پلتفرم تدریس اسلامی رستادی تو جیبته"
             text="قرآن و احکام، همیشه همراهت. گوشی رو بردار و روزی 10 دقیقه یاد بگیر."
           />
-          <ul className="mt-8 flex flex-col gap-4">
+          <ul className="mt-6 flex flex-col gap-3">
             {bullets.map((b, i) => (
               <Reveal key={b.title} delay={i * 70}>
-                <li className="flex items-start gap-3 rounded-[14px] border border-gray-200 bg-white p-4">
-                  <span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-green-50">
+                <li className={`petar-card flex items-start gap-3 ${i === 1 ? "p-5 card-r-md" : "p-4 card-r-sm"}`}>
+                  <span aria-hidden="true" className="icon-r-sm grid size-10 shrink-0 place-items-center bg-green-50">
                     <b.icon className="size-5 text-green-600" strokeWidth={1.8} />
                   </span>
                   <span>

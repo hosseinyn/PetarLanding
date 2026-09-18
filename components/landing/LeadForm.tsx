@@ -250,10 +250,10 @@ export default function LeadForm() {
           />
         </div>
       ) : null}
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-        <div className="grid items-stretch gap-4 lg:grid-cols-2">
+      <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
+        <div className="grid items-stretch gap-5 lg:grid-cols-2">
           <Reveal className="h-full">
-            <div className="flex h-full flex-col justify-center gap-6 rounded-[14px] border border-gray-200 bg-sky-50 p-8 sm:p-10">
+            <div className="flex h-full flex-col justify-center gap-6 border border-gray-200 bg-sky-50 p-6 sm:p-8 card-r-lg">
               <ParallaxPhoto
                 src={leadImage.src}
                 alt={leadImage.alt}
@@ -290,7 +290,7 @@ export default function LeadForm() {
             </div>
           </Reveal>
           <Reveal delay={100} className="h-full">
-            <div className="flex h-full flex-col justify-center rounded-[14px] border border-gray-200 bg-white p-8 sm:p-10">
+            <div className="flex h-full flex-col justify-center border border-gray-200 bg-white p-8 sm:p-10 card-r-md">
               <AnimatePresence mode="wait" initial={false}>
                 {done ? (
                   <motion.div

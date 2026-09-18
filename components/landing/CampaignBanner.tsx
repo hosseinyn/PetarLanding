@@ -10,14 +10,14 @@ import { ParallaxPhoto, Stagger, StaggerItem } from "@/components/ui/motion";
 export default function CampaignBanner() {
   return (
     <section aria-label="کمپین فعال" className="border-t border-gray-200 bg-yellow-50">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div className="section-pad-a mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <div className="grid items-stretch gap-8 rounded-[14px] border border-gray-200 bg-white p-8 sm:p-10 lg:grid-cols-2">
+          <div className="petar-card grid items-stretch gap-8 p-6 sm:p-8 card-r-lg lg:grid-cols-2">
             <ParallaxPhoto
               src={campaign.image}
               alt={campaign.alt}
               sizes="(max-width: 1024px) 100vw, 50vw"
-              frameClassName="h-56 rounded-[10px] bg-yellow-100 lg:h-full lg:min-h-80"
+              frameClassName="h-56 bg-white border border-gray-200 icon-r-md lg:h-full lg:min-h-80"
             />
             <div className="flex flex-col items-start justify-center gap-4">
               <Pill className="border border-gray-200 bg-white text-black/60">
@@ -28,10 +28,10 @@ export default function CampaignBanner() {
                 <HeadlineEmoji name="party-popper" /> {campaign.title}
               </h2>
               <p className="leading-8 text-black/60">{campaign.text}</p>
-              <Stagger className="flex w-full flex-col gap-3" gap={0.07}>
-                {campaign.items.map((item) => (
+              <Stagger className="flex w-full flex-col gap-2.5" gap={0.07}>
+                {campaign.items.map((item, i) => (
                   <StaggerItem key={item}>
-                    <div className="flex items-center gap-3 rounded-[10px] border border-gray-200 bg-white px-4 py-3">
+                    <div className={`petar-card flex items-center gap-3 px-4 ${i % 2 === 0 ? "py-3 icon-r-md" : "py-4 card-r-sm"}`}>
                       <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-green-100">
                         <Check className="size-4 text-green-600" />
                       </span>

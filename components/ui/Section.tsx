@@ -5,16 +5,23 @@ interface SectionProps {
   id: string;
   className?: string;
   containerClassName?: string;
+  pad?: "a" | "b" | "c";
   children: ReactNode;
 }
 
-const containerClass =
-  "mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24";
+const padClass = {
+  a: "section-pad-a",
+  b: "section-pad-b",
+  c: "section-pad-c",
+} as const;
 
-export default function Section({ id, className = "", containerClassName, children }: SectionProps) {
+const containerBase =
+  "mx-auto w-full max-w-6xl px-4 sm:px-6";
+
+export default function Section({ id, className = "", containerClassName, pad = "b", children }: SectionProps) {
   return (
     <section id={id} className={cn("scroll-mt-24", className)}>
-      <div className={containerClassName ?? containerClass}>
+      <div className={containerClassName ?? `${containerBase} ${padClass[pad]}`}>
         {children}
       </div>
     </section>

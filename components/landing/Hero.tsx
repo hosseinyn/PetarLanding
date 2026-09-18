@@ -34,9 +34,16 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span data-parallax="10" className="absolute -top-10 right-[8%] size-40 rounded-full bg-sky-100" />
-        <span data-parallax="14" className="absolute top-40 left-[4%] hidden size-28 rounded-full bg-green-100 sm:block" />
-        <span data-parallax="18" className="absolute bottom-10 right-[38%] hidden size-16 rounded-full bg-yellow-100 lg:block" />
+        <svg
+          viewBox="0 0 120 120"
+          fill="none"
+          className="geo-faint absolute -top-4 left-[6%] hidden size-28 sm:block"
+        >
+          <rect x="30" y="30" width="60" height="60" stroke="currentColor" strokeWidth="1.5" />
+          <rect x="30" y="30" width="60" height="60" stroke="currentColor" strokeWidth="1.5" transform="rotate(45 60 60)" />
+          <circle cx="60" cy="60" r="10" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+        <span className="absolute bottom-12 right-[36%] hidden size-2 rounded-full bg-yellow-400/70 lg:block" />
       </div>
       <Hero3D />
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:grid-cols-2 lg:gap-8 lg:pb-24 lg:pt-16">
@@ -73,7 +80,7 @@ export default function Hero() {
             <li className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-black/60">
               شروع رایگان
             </li>
-            <li className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-black/60">
+            <li className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-black/60">
               هر تجربه 10 دقیقه
             </li>
             <li className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-black/60">
@@ -89,10 +96,10 @@ export default function Hero() {
           style={reduce === true ? undefined : { y: floatY }}
         >
           <div className="grid grid-cols-2 gap-4" aria-label="پیش نمایش تجربه یادگیری در پلتفرم تدریس اسلامی رستادی">
-            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="anim-float col-span-2 rounded-[14px] border border-sky-200 bg-sky-50 p-5">
+            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="col-span-2 border border-sky-200 bg-sky-50 p-5 card-r-lg">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <span aria-hidden="true" className="grid size-11 place-items-center rounded-[10px] bg-sky-400 text-white">
+                  <span aria-hidden="true" className="icon-r-md grid size-11 place-items-center bg-sky-400 text-white">
                     <Gamepad2 className="size-5" />
                   </span>
                   <div>
@@ -110,8 +117,8 @@ export default function Hero() {
                 </span>
               </div>
             </motion.div>
-            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="rounded-[14px] border border-gray-200 bg-white p-5">
-              <span aria-hidden="true" className="anim-pop grid size-11 place-items-center rounded-[10px] bg-yellow-100">
+            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="petar-card p-5 card-r-sm">
+              <span aria-hidden="true" className="anim-pop icon-r-sm grid size-11 place-items-center bg-yellow-100">
                 <Flame className="size-5 text-yellow-700" />
               </span>
               <p className="mt-3 font-semibold">رشته تو: 6 روز</p>
@@ -127,8 +134,8 @@ export default function Hero() {
                 <span className="size-3 rounded-full border border-gray-200" />
               </div>
             </motion.div>
-            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="rounded-[14px] border border-gray-200 bg-white p-5">
-              <span aria-hidden="true" className="anim-pop grid size-11 place-items-center rounded-[10px] bg-green-100" style={{ animationDelay: "1.2s" }}>
+            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="petar-card p-5 card-r-sm">
+              <span aria-hidden="true" className="icon-r-sm grid size-11 place-items-center bg-green-100">
                 <Medal className="size-5 text-green-600" />
               </span>
               <p className="mt-3 font-semibold">نشان سوره کوثر</p>
@@ -138,7 +145,7 @@ export default function Hero() {
                 3 نشان از 12
               </span>
             </motion.div>
-            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="col-span-2 rounded-[14px] border border-gray-200 bg-white p-5">
+            <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="col-span-2 border border-gray-200 bg-white p-6 card-r-md">
               <div className="flex items-center justify-between gap-4">
                 <p className="font-semibold">آیه امروز</p>
                 <span className="rounded-full bg-yellow-400 px-3 py-1 text-xs font-medium text-black">

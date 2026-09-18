@@ -10,22 +10,23 @@ import Section from "@/components/ui/Section";
 
 export default function Experiences() {
   return (
-    <Section id="experiences" className="border-t border-gray-200">
+    <Section id="experiences" pad="b" className="border-t border-gray-200">
         <Reveal>
           <SectionHeading
             accent="sky"
             emoji="joystick"
+            spacing="tight"
             eyebrow="تجربه های پیشنهادی"
             title="اولین تجربه ات رو انتخاب کن"
             text="هر تجربه با یه آیه شروع میشه و با یه فعالیت واقعی تموم میشه. ببین کدوم به حال و هوای تو نزدیک تره."
           />
         </Reveal>
-        <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2" gap={0.1}>
+        <Stagger className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2" gap={0.1}>
           {experiences.map((exp) => (
             <StaggerItem key={exp.title} className="h-full">
               <TiltCard className="h-full" max={7}>
               <article
-                className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white transition duration-700 hover:-translate-y-1 ${accentHoverBorder[exp.accent]}`}
+                className={`group petar-card flex h-full cursor-pointer flex-col overflow-hidden transition duration-700 hover:-translate-y-1 card-r-lg ${accentHoverBorder[exp.accent]}`}
               >
                 <div className="relative">
                   <ParallaxPhoto

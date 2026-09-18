@@ -14,23 +14,25 @@ export default function FAQ() {
   const reduce = useReducedMotion();
 
   return (
-    <Section id="faq" className="border-t border-gray-200" containerClassName="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:py-24">
+    <Section id="faq" className="border-t border-gray-200" containerClassName="mx-auto w-full max-w-2xl px-4 section-pad-b sm:px-6">
         <Reveal>
           <SectionHeading
             accent="sky"
             emoji="thinking-face"
+            width="narrow"
+            spacing="tight"
             eyebrow="سوالات پرتکرار"
             title="بپرس، جوابش اینجاست"
             text="اگه جوابت رو پیدا نکردی، تو فرم شروع بنویس تا خبرت کنیم."
           />
         </Reveal>
-        <div className="mt-10 flex flex-col gap-3">
+        <div className="mt-8 flex flex-col gap-2.5">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={faq.question} delay={i * 40}>
                 <div
-                  className={`overflow-hidden rounded-[14px] border bg-white transition duration-700 ${
+                  className={`overflow-hidden border bg-white transition duration-700 card-r-md ${
                     isOpen ? "border-sky-300" : "border-gray-200"
                   }`}
                 >

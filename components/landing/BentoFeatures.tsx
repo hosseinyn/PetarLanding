@@ -143,21 +143,39 @@ function FeatureCard({ feature }: { feature: BentoFeature }) {
   const Icon = getIcon(feature.icon);
   const accent: Accent = feature.accent;
   const full = feature.full === true;
+  const cardRadius = full ? "card-r-lg" : feature.span === true ? "card-r-md" : "card-r-sm";
+  if (full) {
+    return (
+      <StaggerItem className="sm:col-span-2 lg:col-span-3">
+        <article
+          className={`petar-card flex h-full cursor-pointer flex-col gap-5 p-6 transition duration-700 hover:-translate-y-1 sm:p-7 ${cardRadius} ${accentHoverBorder[accent]}`}
+        >
+          <div className="flex flex-col gap-1.5">
+            <h3 className="text-xl font-semibold"><HeadlineEmoji name={feature.emoji} /> {feature.title}</h3>
+            <p className="max-w-xl leading-8 text-black/60">{feature.text}</p>
+          </div>
+          <div className={`icon-r-md p-4 sm:p-5 ${accentTint[accent]}`}>
+            <Scene name={feature.scene} />
+          </div>
+        </article>
+      </StaggerItem>
+    );
+  }
   return (
-    <StaggerItem className={full ? "sm:col-span-2 lg:col-span-3" : feature.span === true ? "sm:col-span-2" : ""}>
+    <StaggerItem className={feature.span === true ? "sm:col-span-2" : ""}>
       <article
-        className={`flex h-full cursor-pointer flex-col gap-4 rounded-[14px] border border-gray-200 bg-white p-6 transition duration-700 hover:-translate-y-1 ${accentHoverBorder[accent]} ${full ? "sm:flex-row sm:items-center sm:gap-6" : ""}`}
+        className={`petar-card flex h-full cursor-pointer flex-col gap-4 p-6 transition duration-700 hover:-translate-y-1 ${cardRadius} ${accentHoverBorder[accent]}`}
       >
-        <div className={`rounded-[10px] p-4 ${accentTint[accent]} ${full ? "sm:flex-1" : ""}`}>
+        <div className={`icon-r-md p-4 ${accentTint[accent]}`}>
           <Scene name={feature.scene} />
         </div>
-        <div className={`flex items-start gap-3 ${full ? "sm:flex-1" : ""}`}>
-          <span aria-hidden="true" className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${accentTint[accent]}`}>
+        <div className="flex items-start gap-3">
+          <span aria-hidden="true" className={`icon-r-sm grid size-10 shrink-0 place-items-center ${accentTint[accent]}`}>
             <Icon className={`size-5 ${accentText[accent]}`} strokeWidth={1.8} />
           </span>
           <div className="flex flex-col gap-1.5">
             <h3 className="text-lg font-semibold"><HeadlineEmoji name={feature.emoji} /> {feature.title}</h3>
-            <p className="leading-8 text-black/60">{feature.text}</p>
+            <p className="text-[15px] leading-8 text-black/60">{feature.text}</p>
           </div>
         </div>
       </article>
@@ -167,17 +185,18 @@ function FeatureCard({ feature }: { feature: BentoFeature }) {
 
 export default function BentoFeatures() {
   return (
-    <Section id="features">
+    <Section id="features" pad="c">
         <Reveal>
           <SectionHeading
             accent="green"
             emoji="rocket"
+            width="narrow"
             eyebrow="چرا پلتفرم تدریس اسلامی رستادی باحاله"
             title="یادگیری که شبیه بازیه"
             text="هر کارت یه تیکه از تجربه پلتفرم تدریس اسلامی رستادیه. ببین چطور آیه، بازی و احکام به هم وصل میشن."
           />
         </Reveal>
-        <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" gap={0.09}>
+        <Stagger className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" gap={0.09}>
           {bentoFeatures.map((feature) => (
             <FeatureCard key={feature.title} feature={feature} />
           ))}

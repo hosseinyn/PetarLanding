@@ -12,6 +12,8 @@ interface SectionHeadingProps {
   accent?: Accent;
   sparkles?: boolean;
   emoji?: string;
+  width?: "default" | "narrow";
+  spacing?: "default" | "tight";
 }
 
 export default function SectionHeading({
@@ -22,11 +24,15 @@ export default function SectionHeading({
   accent = "sky",
   sparkles = false,
   emoji = "",
+  width = "default",
+  spacing = "default",
 }: SectionHeadingProps) {
   const alignClasses =
     align === "center" ? "items-center text-center" : "items-start text-start";
+  const gapClass = spacing === "tight" ? "gap-2" : "gap-3";
+  const textWidth = width === "narrow" ? "max-w-xl" : "max-w-2xl";
   return (
-    <div className={`flex flex-col gap-3 ${alignClasses}`}>
+    <div className={`flex flex-col ${gapClass} ${alignClasses}`}>
       <span className="relative inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-black/60">
         {sparkles ? (
           <>
@@ -47,7 +53,7 @@ export default function SectionHeading({
         <span aria-hidden="true" className={`inline-block size-1.5 rounded-full ${accentDot[accent]}`} />
         {eyebrow}
       </span>
-      <h2 className="max-w-2xl text-2xl font-semibold leading-snug sm:text-3xl">
+      <h2 className={`${textWidth} text-2xl font-semibold leading-snug sm:text-3xl`}>
         {emoji !== "" ? (
           <>
             <HeadlineEmoji name={emoji} />{" "}
@@ -56,7 +62,7 @@ export default function SectionHeading({
         {title}
       </h2>
       {text !== "" ? (
-        <p className="max-w-2xl leading-8 text-black/60">{text}</p>
+        <p className={`${textWidth} leading-8 text-black/60`}>{text}</p>
       ) : null}
     </div>
   );

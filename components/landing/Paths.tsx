@@ -3,7 +3,7 @@ import { paths } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
-import { Stagger, StaggerItem, TiltCard } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { getIcon } from "@/lib/icons";
 import { accentHoverBorder, accentText, accentTint } from "@/lib/accent";
 import { LEAD_FORM_HREF } from "@/lib/site";
@@ -11,28 +11,28 @@ import Section from "@/components/ui/Section";
 
 export default function Paths() {
   return (
-    <Section id="paths" className="border-t border-gray-200">
+    <Section id="paths" pad="c" className="border-t border-gray-200">
         <Reveal>
           <SectionHeading
             accent="yellow"
             sparkles
             emoji="world-map"
+            spacing="tight"
             eyebrow="مسیرهای یادگیری"
             title="قدم به قدم، تا تهش برو"
             text="چند تا تجربه پشت سر هم یه مسیر میسازه. آخر هر مسیر یه فعالیت جمع بندی و یه نشان داره."
           />
         </Reveal>
-        <Stagger className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3" gap={0.1}>
+        <Stagger className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3" gap={0.1}>
           {paths.map((path) => {
             const Icon = getIcon(path.icon);
             return (
               <StaggerItem key={path.title} className="h-full">
-                <TiltCard className="h-full" max={7}>
                 <article
-                  className={`flex h-full cursor-pointer flex-col gap-3 rounded-[14px] border border-gray-200 bg-white p-6 transition duration-700 [transform-style:preserve-3d] hover:-translate-y-1 ${accentHoverBorder[path.accent]}`}
+                  className={`petar-card flex h-full cursor-pointer flex-col gap-3 p-6 transition duration-700 card-r-md ${accentHoverBorder[path.accent]}`}
                 >
-                  <span aria-hidden="true" className={`tilt-pop grid size-12 place-items-center rounded-[10px] ${accentTint[path.accent]}`}>
-                    <Icon className={`size-6 ${accentText[path.accent]}`} strokeWidth={1.8} />
+                  <span aria-hidden="true" className={`icon-r-sm grid size-11 place-items-center ${accentTint[path.accent]}`}>
+                    <Icon className={`size-5 ${accentText[path.accent]}`} strokeWidth={1.8} />
                   </span>
                   <p className="inline-flex w-fit rounded-full border border-gray-200 px-3 py-1 text-xs text-black/60">
                     {path.level}
@@ -44,7 +44,6 @@ export default function Paths() {
                     {path.lessons}
                   </p>
                 </article>
-                </TiltCard>
               </StaggerItem>
             );
           })}
