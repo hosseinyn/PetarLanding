@@ -1,4 +1,5 @@
 import {
+  ArrowUp,
   BarChart3,
   BookOpen,
   Brain,
@@ -25,6 +26,7 @@ import {
 } from "lucide-react";
 
 export const icons = {
+  up: ArrowUp,
   route: Route,
   brain: Brain,
   languages: Languages,

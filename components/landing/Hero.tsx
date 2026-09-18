@@ -1,12 +1,17 @@
 "use client";
 
 import { useRef, type CSSProperties } from "react";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Flame, Gamepad2, Medal, Sparkles } from "lucide-react";
 import Button from "@/components/ui/Button";
 import HeroHeadline from "@/components/landing/HeroHeadline";
 import { EASE } from "@/components/ui/motion";
 import { LEAD_FORM_HREF } from "@/lib/site";
+
+const Hero3D = dynamic(() => import("@/components/3d/Hero3D"), {
+  ssr: false,
+});
 
 const entrance = {
   hidden: { opacity: 0, y: 32 },
@@ -29,10 +34,11 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -top-10 right-[8%] size-40 rounded-full bg-sky-100" />
-        <span className="absolute top-40 left-[4%] hidden size-28 rounded-full bg-green-100 sm:block" />
-        <span className="absolute bottom-10 right-[38%] hidden size-16 rounded-full bg-yellow-100 lg:block" />
+        <span data-parallax="10" className="absolute -top-10 right-[8%] size-40 rounded-full bg-sky-100" />
+        <span data-parallax="14" className="absolute top-40 left-[4%] hidden size-28 rounded-full bg-green-100 sm:block" />
+        <span data-parallax="18" className="absolute bottom-10 right-[38%] hidden size-16 rounded-full bg-yellow-100 lg:block" />
       </div>
+      <Hero3D />
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:grid-cols-2 lg:gap-8 lg:pb-24 lg:pt-16">
         <motion.div
           initial={reduce === true ? false : "hidden"}

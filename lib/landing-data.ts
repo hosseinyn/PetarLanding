@@ -132,6 +132,7 @@ export const bentoFeatures: BentoFeature[] = [
     title: "آیه امروز",
     text: "هر روز یک آیه کوتاه با ترجمه روان. کمتر از یک دقیقه طول میکشه، ولی کل روز همراهته.",
     scene: "verse",
+    full: true,
   },
 ];
 

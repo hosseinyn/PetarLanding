@@ -23,6 +23,7 @@ export interface BentoFeature {
   text: string;
   scene: "journey" | "quiz" | "streak" | "badge" | "chat" | "verse";
   span?: boolean;
+  full?: boolean;
 }
 
 export interface Experience {

@@ -1,23 +1,35 @@
 import Image from "next/image";
+import { getIcon, type IconName } from "@/lib/icons";
 
-const columns = [
+interface FooterLink {
+  href: string;
+  label: string;
+  icon: IconName;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+const columns: FooterColumn[] = [
   {
     title: "یادگیری",
     links: [
-      { href: "#concept", label: "از آیه تا زندگی" },
-      { href: "#experiences", label: "تجربه ها" },
-      { href: "#topics", label: "موضوعات" },
-      { href: "#paths", label: "مسیرها" },
+      { href: "#concept", label: "از آیه تا زندگی", icon: "route" },
+      { href: "#experiences", label: "تجربه ها", icon: "quiz" },
+      { href: "#topics", label: "موضوعات", icon: "grid" },
+      { href: "#paths", label: "مسیرها", icon: "map" },
     ],
   },
   {
     title: "پتار",
     links: [
-      { href: "#features", label: "چرا پلتفرم تدریس اسلامی رستادی" },
-      { href: "#ai", label: "هوش مصنوعی" },
-      { href: "#faq", label: "سوالات پرتکرار" },
-      { href: "#lead", label: "شروع رایگان" },
-      { href: "#top", label: "برگشت به بالا" },
+      { href: "#features", label: "چرا پلتفرم تدریس اسلامی رستادی", icon: "compass" },
+      { href: "#ai", label: "هوش مصنوعی", icon: "sparkles" },
+      { href: "#faq", label: "سوالات پرتکرار", icon: "help" },
+      { href: "#lead", label: "شروع رایگان", icon: "flame" },
+      { href: "#top", label: "برگشت به بالا", icon: "up" },
     ],
   },
 ];
@@ -44,16 +56,20 @@ export default function Footer() {
             <nav key={col.title} aria-label={col.title}>
               <h2 className="font-semibold">{col.title}</h2>
               <ul className="mt-4 flex flex-col gap-1">
-                {col.links.map((link) => (
-                  <li key={`${col.title}-${link.label}`}>
-                    <a
-                      href={link.href}
-                      className="inline-block cursor-pointer rounded py-1.5 text-sm text-black/60 transition duration-700 hover:text-sky-700"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const Icon = getIcon(link.icon);
+                  return (
+                    <li key={`${col.title}-${link.label}`}>
+                      <a
+                        href={link.href}
+                        className="inline-flex cursor-pointer items-center gap-2 rounded py-1.5 text-sm text-black/60 transition duration-700 hover:text-sky-700"
+                      >
+                        <Icon className="size-4" strokeWidth={1.8} aria-hidden="true" />
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           ))}

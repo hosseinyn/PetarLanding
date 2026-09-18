@@ -142,15 +142,16 @@ function Scene({ name }: { name: BentoFeature["scene"] }) {
 function FeatureCard({ feature }: { feature: BentoFeature }) {
   const Icon = getIcon(feature.icon);
   const accent: Accent = feature.accent;
+  const full = feature.full === true;
   return (
-    <StaggerItem className={feature.span === true ? "sm:col-span-2" : ""}>
+    <StaggerItem className={full ? "sm:col-span-2 lg:col-span-3" : feature.span === true ? "sm:col-span-2" : ""}>
       <article
-        className={`flex h-full cursor-pointer flex-col gap-4 rounded-[14px] border border-gray-200 bg-white p-6 transition duration-700 hover:-translate-y-1 ${accentHoverBorder[accent]}`}
+        className={`flex h-full cursor-pointer flex-col gap-4 rounded-[14px] border border-gray-200 bg-white p-6 transition duration-700 hover:-translate-y-1 ${accentHoverBorder[accent]} ${full ? "sm:flex-row sm:items-center sm:gap-6" : ""}`}
       >
-        <div className={`rounded-[10px] p-4 ${accentTint[accent]}`}>
+        <div className={`rounded-[10px] p-4 ${accentTint[accent]} ${full ? "sm:flex-1" : ""}`}>
           <Scene name={feature.scene} />
         </div>
-        <div className="flex items-start gap-3">
+        <div className={`flex items-start gap-3 ${full ? "sm:flex-1" : ""}`}>
           <span aria-hidden="true" className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${accentTint[accent]}`}>
             <Icon className={`size-5 ${accentText[accent]}`} strokeWidth={1.8} />
           </span>

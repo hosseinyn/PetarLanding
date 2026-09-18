@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import { Stagger, StaggerItem, TiltCard } from "@/components/ui/motion";
 import RobotScene from "@/components/landing/RobotScene";
+import AiLoopCard from "@/components/landing/AiLoopCard";
 import { getIcon } from "@/lib/icons";
 import {
   accentHoverBorder,
@@ -29,6 +30,9 @@ export default function AIFuture() {
         </Reveal>
         <Reveal delay={80} className="mt-10">
           <RobotScene />
+        </Reveal>
+        <Reveal delay={100} className="mt-4">
+          <AiLoopCard />
         </Reveal>
         <Reveal delay={120}>
           <p className="mx-auto mt-6 flex w-fit items-center gap-2 rounded-full bg-yellow-400 px-4 py-1.5 text-sm font-medium text-black">
