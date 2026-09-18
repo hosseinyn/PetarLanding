@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { Star } from "lucide-react";
-import type { Accent } from "@/components/landing/accent";
-import { accentDot } from "@/components/landing/accent";
+import type { Accent } from "@/types/accent";
+import { accentDot } from "@/lib/accent";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 
 interface SectionHeadingProps {

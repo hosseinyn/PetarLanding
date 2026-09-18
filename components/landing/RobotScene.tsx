@@ -47,17 +47,6 @@ function RobotFigure({ pupilX, pupilY }: { pupilX: MotionValue<number>; pupilY: 
         d="M100 129l2.6 7.4 7.4 2.6-7.4 2.6-2.6 7.4-2.6-7.4-7.4-2.6 7.4-2.6z"
         fill="#A855F7"
       />
-      <text
-        x="100"
-        y="162"
-        textAnchor="middle"
-        fontSize="13"
-        fontWeight="700"
-        fill="#FFFFFF"
-        fontFamily="Inter, Arial, sans-serif"
-      >
-        AI
-      </text>
       <rect x="44" y="66" width="10" height="26" rx="5" fill="#7C3AED" />
       <rect x="146" y="66" width="10" height="26" rx="5" fill="#7C3AED" />
       <rect x="52" y="40" width="96" height="62" rx="24" fill="#A855F7" />

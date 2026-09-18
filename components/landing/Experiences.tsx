@@ -4,12 +4,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
 import { ParallaxPhoto, Stagger, StaggerItem, TiltCard } from "@/components/ui/motion";
-import { accentHoverBorder, accentText, accentTint } from "@/components/landing/accent";
+import { accentHoverBorder, accentText, accentTint } from "@/lib/accent";
+import { LEAD_FORM_HREF } from "@/lib/site";
+import Section from "@/components/ui/Section";
 
 export default function Experiences() {
   return (
-    <section id="experiences" className="scroll-mt-24 border-t border-gray-200">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <Section id="experiences" className="border-t border-gray-200">
         <Reveal>
           <SectionHeading
             accent="sky"
@@ -61,13 +62,12 @@ export default function Experiences() {
         </Stagger>
         <Reveal delay={100}>
           <div className="mt-8 flex justify-center">
-            <Button href="#lead" variant="secondary">
+            <Button href={LEAD_FORM_HREF} variant="secondary">
               این تجربه ها رو رایگان شروع کن
               <ArrowLeft className="size-4" aria-hidden="true" />
             </Button>
           </div>
         </Reveal>
-      </div>
-    </section>
+    </Section>
   );
 }

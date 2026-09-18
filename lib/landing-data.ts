@@ -1,83 +1,26 @@
-export interface NavLink {
-  href: string;
-  label: string;
-  icon: string;
-}
+import type {
+  AiFeature,
+  BentoFeature,
+  Campaign,
+  ConceptStep,
+  Experience,
+  FAQ,
+  NavLink,
+  Path,
+  Topic,
+} from "@/types/landing";
 
-export interface ConceptStep {
-  emoji: string;
-  title: string;
-  text: string;
-  icon: string;
-  example: string;
-}
-
-export interface BentoFeature {
-  emoji: string;
-  icon: string;
-  accent: "sky" | "green" | "yellow";
-  title: string;
-  text: string;
-  scene: "journey" | "quiz" | "streak" | "badge" | "chat" | "verse";
-  span?: boolean;
-}
-
-export interface Experience {
-  emoji: string;
-  topic: string;
-  title: string;
-  text: string;
-  ref: string;
-  activity: string;
-  duration: string;
-  accent: "sky" | "green" | "yellow";
-  image: string;
-  alt: string;
-}
-
-export interface Topic {
-  emoji: string;
-  icon: string;
-  title: string;
-  count: string;
-  accent: "sky" | "green" | "yellow";
-}
-
-export interface Path {
-  emoji: string;
-  icon: string;
-  title: string;
-  text: string;
-  level: string;
-  lessons: string;
-  accent: "sky" | "green" | "yellow";
-}
-
-export interface Campaign {
-  badge: string;
-  title: string;
-  text: string;
-  items: string[];
-  start: string;
-  end: string;
-  cta: string;
-  image: string;
-  alt: string;
-}
-
-export interface Faq {
-  emoji: string;
-  question: string;
-  answer: string;
-}
-
-export interface AiFeature {
-  emoji: string;
-  icon: string;
-  title: string;
-  text: string;
-  accent: "sky" | "green" | "yellow";
-}
+export type {
+  AiFeature,
+  BentoFeature,
+  Campaign,
+  ConceptStep,
+  Experience,
+  FAQ,
+  NavLink,
+  Path,
+  Topic,
+};
 
 export const navLinks: NavLink[] = [
   { href: "#concept", label: "از آیه تا زندگی", icon: "route" },
@@ -203,7 +146,7 @@ export const experiences: Experience[] = [
     duration: "8 دقیقه",
     accent: "sky",
     image:
-      "/assets/images/quran-pages.jpg",
+      "/images/quran-pages.webp",
     alt: "صفحه های قرآن",
   },
   {
@@ -216,7 +159,7 @@ export const experiences: Experience[] = [
     duration: "10 دقیقه",
     accent: "green",
     image:
-      "/assets/images/quran-flatlay.jpg",
+      "/images/quran-flatlay.webp",
     alt: "قرآن",
   },
   {
@@ -229,7 +172,7 @@ export const experiences: Experience[] = [
     duration: "9 دقیقه",
     accent: "yellow",
     image:
-      "/assets/images/quran-gold.jpg",
+      "/images/quran-gold.webp",
     alt: "جلد قرآن",
   },
   {
@@ -242,7 +185,7 @@ export const experiences: Experience[] = [
     duration: "12 دقیقه",
     accent: "sky",
     image:
-      "/assets/images/medina-mosque.jpg",
+      "/images/medina-mosque.webp",
     alt: "مسجد النبی",
   },
 ];
@@ -344,20 +287,18 @@ export const campaign: Campaign = {
   title: "کمپین شروع یادگیری",
   text: "اولین قدم رو با هم برمیداریم. تو این کمپین چند تجربه منتخب قرآن و احکام رو رایگان انجام میدی، نشان شروع میگیری و وارد مسیر یادگیری میشی.",
   items: ["8 تجربه قرآن و احکام", "2 مسیر روخوانی و فهم", "نشان شروع کمپین", "بدون نیاز به پرداخت"],
-  start: "1 مهر",
-  end: "30 مهر",
   cta: "من هم هستم",
   image:
-    "/assets/images/mosque-dusk.jpg",
+    "/images/mosque-dusk.webp",
   alt: "مسجد در غروب",
 };
 
 export const leadImage = {
-  src: "/assets/images/quran-pages.jpg",
+  src: "/images/quran-pages.webp",
   alt: "صفحه های قرآن",
 };
 
-export const faqs: Faq[] = [
+export const faqs: FAQ[] = [
   {
     emoji: "mosque",
     question: "پلتفرم تدریس اسلامی رستادی دقیقا چیه؟",

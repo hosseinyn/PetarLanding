@@ -1,16 +1,17 @@
-import { ArrowLeft, Footprints, Sparkles } from "lucide-react";
+import { ArrowLeft, Footprints } from "lucide-react";
 import { paths } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
 import { Stagger, StaggerItem, TiltCard } from "@/components/ui/motion";
-import { icons } from "@/components/landing/icons";
-import { accentHoverBorder, accentText, accentTint } from "@/components/landing/accent";
+import { getIcon } from "@/lib/icons";
+import { accentHoverBorder, accentText, accentTint } from "@/lib/accent";
+import { LEAD_FORM_HREF } from "@/lib/site";
+import Section from "@/components/ui/Section";
 
 export default function Paths() {
   return (
-    <section id="paths" className="scroll-mt-24 border-t border-gray-200">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <Section id="paths" className="border-t border-gray-200">
         <Reveal>
           <SectionHeading
             accent="yellow"
@@ -23,7 +24,7 @@ export default function Paths() {
         </Reveal>
         <Stagger className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3" gap={0.1}>
           {paths.map((path) => {
-            const Icon = icons[path.icon] ?? Sparkles;
+            const Icon = getIcon(path.icon);
             return (
               <StaggerItem key={path.title} className="h-full">
                 <TiltCard className="h-full" max={7}>
@@ -50,13 +51,12 @@ export default function Paths() {
         </Stagger>
         <Reveal delay={100}>
           <div className="mt-8 flex justify-center">
-            <Button href="#lead" variant="secondary">
+            <Button href={LEAD_FORM_HREF} variant="secondary">
               مسیرم رو رایگان شروع کن
               <ArrowLeft className="size-4" aria-hidden="true" />
             </Button>
           </div>
         </Reveal>
-      </div>
-    </section>
+    </Section>
   );
 }

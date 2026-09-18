@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: 'Estedad';
-  src: url('../assets/fonts/Estedad.woff2');
+  src: url('/fonts/Estedad.woff2') format('woff2');
 }
 
 @theme {
-  --font-sans: "Estedad", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-sans: "Estedad", "Segoe UI", Arial, sans-serif;
   --font-latin: "Estedad", "Segoe UI", Arial, sans-serif;
 }
 
@@ -28,7 +28,12 @@ body {
   color: #000000;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  font-weight: 600;
   text-rendering: optimizeLegibility;
+}
+
+.Toastify__toast-container {
+  --toastify-font-family: "Estedad", "Segoe UI", Arial, sans-serif;
 }
 
 ::selection {

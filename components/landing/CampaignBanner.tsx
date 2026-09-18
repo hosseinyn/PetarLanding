@@ -1,8 +1,10 @@
-import { CalendarDays, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { campaign } from "@/lib/landing-data";
 import Reveal from "@/components/ui/Reveal";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 import Button from "@/components/ui/Button";
+import Pill from "@/components/ui/Pill";
+import { LEAD_FORM_HREF } from "@/lib/site";
 import { ParallaxPhoto, Stagger, StaggerItem } from "@/components/ui/motion";
 
 export default function CampaignBanner() {
@@ -10,24 +12,18 @@ export default function CampaignBanner() {
     <section aria-label="کمپین فعال" className="border-t border-gray-200 bg-yellow-50">
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
         <Reveal>
-          <div className="grid items-center gap-8 rounded-[14px] border border-gray-200 bg-white p-8 sm:p-10 lg:grid-cols-2">
-            <div className="relative overflow-hidden rounded-[10px] bg-yellow-100">
-              <ParallaxPhoto
-                src={campaign.image}
-                alt={campaign.alt}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                frameClassName="h-56 bg-yellow-100 lg:h-full lg:min-h-72"
-              />
-              <p className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-yellow-400 px-4 py-1.5 text-sm font-medium text-black">
-                <CalendarDays className="size-4" aria-hidden="true" />
-                {campaign.start} تا {campaign.end}
-              </p>
-            </div>
-            <div className="flex flex-col items-start gap-4">
-              <p className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-black/60">
+          <div className="grid items-stretch gap-8 rounded-[14px] border border-gray-200 bg-white p-8 sm:p-10 lg:grid-cols-2">
+            <ParallaxPhoto
+              src={campaign.image}
+              alt={campaign.alt}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              frameClassName="h-56 rounded-[10px] bg-yellow-100 lg:h-full lg:min-h-80"
+            />
+            <div className="flex flex-col items-start justify-center gap-4">
+              <Pill className="border border-gray-200 bg-white text-black/60">
                 <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-green-500" />
                 {campaign.badge}
-              </p>
+              </Pill>
               <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
                 <HeadlineEmoji name="party-popper" /> {campaign.title}
               </h2>
@@ -44,7 +40,7 @@ export default function CampaignBanner() {
                   </StaggerItem>
                 ))}
               </Stagger>
-              <Button href="#lead" className="mt-2">
+              <Button href={LEAD_FORM_HREF} className="mt-2">
                 {campaign.cta}
               </Button>
             </div>

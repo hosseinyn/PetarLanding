@@ -19,6 +19,7 @@ import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import { EASE, TiltCard } from "@/components/ui/motion";
+import { LEAD_FORM_HREF } from "@/lib/site";
 
 const bullets = [
   {
@@ -141,7 +142,7 @@ export default function PhoneMockup() {
           </ul>
           <Reveal delay={120}>
             <div className="mt-8 flex items-center gap-3">
-              <Button href="#lead">
+              <Button href={LEAD_FORM_HREF}>
                 رایگان شروع کن
               </Button>
               <span className="inline-flex items-center gap-1.5 text-sm text-black/60">

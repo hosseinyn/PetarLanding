@@ -5,13 +5,13 @@ import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import ConceptFlow from "@/components/landing/ConceptFlow";
 import BentoFeatures from "@/components/landing/BentoFeatures";
-import AiFuture from "@/components/landing/AiFuture";
+import AIFuture from "@/components/landing/AIFuture";
 import Experiences from "@/components/landing/Experiences";
 import Topics from "@/components/landing/Topics";
 import Paths from "@/components/landing/Paths";
 import CampaignBanner from "@/components/landing/CampaignBanner";
 import PhoneMockup from "@/components/landing/PhoneMockup";
-import Faq from "@/components/landing/Faq";
+import FAQ from "@/components/landing/FAQ";
 import LeadForm from "@/components/landing/LeadForm";
 import Footer from "@/components/landing/Footer";
 
@@ -26,13 +26,13 @@ export default function Home() {
           <Hero />
           <ConceptFlow />
           <BentoFeatures />
-          <AiFuture />
+          <AIFuture />
           <Experiences />
           <Topics />
           <Paths />
         <CampaignBanner />
         <PhoneMockup />
-        <Faq />
+        <FAQ />
           <LeadForm />
         </main>
         <Footer />

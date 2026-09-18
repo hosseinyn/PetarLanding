@@ -1,17 +1,18 @@
 import type { CSSProperties } from "react";
-import { Check, Flame, Medal, Sparkles, Star } from "lucide-react";
+import { Check, Flame, Medal, Star } from "lucide-react";
 import { bentoFeatures, type BentoFeature } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 import Reveal from "@/components/ui/Reveal";
 import { Stagger, StaggerItem, PauseOffscreen } from "@/components/ui/motion";
-import { icons } from "@/components/landing/icons";
+import { getIcon } from "@/lib/icons";
 import {
   accentHoverBorder,
   accentText,
   accentTint,
-  type Accent,
-} from "@/components/landing/accent";
+} from "@/lib/accent";
+import type { Accent } from "@/types/accent";
+import Section from "@/components/ui/Section";
 
 function JourneyScene() {
   const nodes = ["آیه", "مفهوم", "فعالیت", "زندگی"];
@@ -139,7 +140,7 @@ function Scene({ name }: { name: BentoFeature["scene"] }) {
 }
 
 function FeatureCard({ feature }: { feature: BentoFeature }) {
-  const Icon = icons[feature.icon] ?? Sparkles;
+  const Icon = getIcon(feature.icon);
   const accent: Accent = feature.accent;
   return (
     <StaggerItem className={feature.span === true ? "sm:col-span-2" : ""}>
@@ -165,8 +166,7 @@ function FeatureCard({ feature }: { feature: BentoFeature }) {
 
 export default function BentoFeatures() {
   return (
-    <section id="features" className="scroll-mt-24">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <Section id="features">
         <Reveal>
           <SectionHeading
             accent="green"
@@ -181,7 +181,6 @@ export default function BentoFeatures() {
             <FeatureCard key={feature.title} feature={feature} />
           ))}
         </Stagger>
-      </div>
-    </section>
+    </Section>
   );
 }

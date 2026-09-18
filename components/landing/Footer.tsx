@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+import Image from "next/image";
 
 const columns = [
   {
@@ -29,20 +29,15 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="flex flex-col items-start gap-4 md:col-span-2">
             <a href="#top" className="flex items-center gap-2.5" aria-label="پتار">
-              <span aria-hidden="true" className="grid size-9 place-items-center rounded-full bg-sky-400 text-white">
-                <BookOpen className="size-5" strokeWidth={2} />
-              </span>
+              <Image src="/images/logo.webp" width={32} height={32} alt="فناوری های آموزشی رستادی" title="فناوری های آموزشی رستادی" />
               <span className="flex flex-col leading-none">
-                <span className="text-lg font-semibold">پتار</span>
+                <span className="text-lg font-semibold">پلتفرم تدریس اسلامی رستادی</span>
                 <span className="text-xs text-black/60">از آیه تا زندگی</span>
               </span>
             </a>
             <p className="max-w-xs text-sm leading-7 text-black/60">
               پلتفرم تدریس اسلامی رستادی قرآن، احکام و معارف شیعه رو به تجربه یادگیری تعاملی تبدیل
-              میکنه. همه محتوا رو تیم پلتفرم تدریس اسلامی رستادی بررسی و تایید میکنه.
-            </p>
-            <p className="inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 text-sm text-green-700">
-              محتوای تایید شده، خیالت راحت
+              میکنه.
             </p>
           </div>
           {columns.map((col) => (
@@ -64,8 +59,8 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-gray-200 pt-6 text-sm text-black/60 sm:flex-row">
-          <p>پلتفرم تدریس اسلامی رستادی، ساخته شده با علاقه برای یادگیری قرآن</p>
-          <p>شروع رایگان، بدون نیاز به پرداخت</p>
+          <p>تمامی حقوق برای فناوری های آموزشی رستادی محفوظ است</p>
+          <p>Restudy Religions Program</p>
         </div>
       </div>
     </footer>

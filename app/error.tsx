@@ -1,10 +1,11 @@
 "use client";
 
-interface LandingDataProps {
-  reset?: () => void;
+interface ErrorProps {
+  error?: Error & { digest?: string };
+  reset: () => void;
 }
 
-export default function Error({ reset }: LandingDataProps) {
+export default function Error({ reset }: ErrorProps) {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-24 text-center">
       <p className="rounded-full border border-gray-200 px-4 py-1.5 text-sm text-black/60">

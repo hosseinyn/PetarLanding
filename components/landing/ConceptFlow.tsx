@@ -1,16 +1,16 @@
 import type { CSSProperties } from "react";
-import { Sparkles } from "lucide-react";
 import { conceptSteps, type ConceptStep } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import Section from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
 import { Stagger, StaggerItem, TiltCard, PauseOffscreen } from "@/components/ui/motion";
-import { icons } from "@/components/landing/icons";
-import type { Accent } from "@/components/landing/accent";
+import { getIcon } from "@/lib/icons";
+import type { Accent } from "@/types/accent";
 import {
   accentHoverBorder,
   accentText,
   accentTint,
-} from "@/components/landing/accent";
+} from "@/lib/accent";
 
 const cardAccents: Accent[] = ["sky", "green", "yellow", "sky", "green", "yellow", "sky"];
 
@@ -37,8 +37,8 @@ function JourneyVisual() {
 }
 
 function StepCard({ step, index, featured = false }: { step: ConceptStep; index: number; featured?: boolean }) {
-  const Icon = icons[step.icon] ?? Sparkles;
-  const accent: Accent = cardAccents[index % cardAccents.length] as Accent;
+  const Icon = getIcon(step.icon);
+  const accent: Accent = cardAccents[index % cardAccents.length];
   return (
     <StaggerItem className={featured ? "sm:col-span-2" : ""}>
       <TiltCard className="h-full" max={featured ? 5 : 7}>
@@ -76,8 +76,7 @@ function StepCard({ step, index, featured = false }: { step: ConceptStep; index:
 export default function ConceptFlow() {
   const [first, ...rest] = conceptSteps;
   return (
-    <section id="concept" className="scroll-mt-24 border-y border-gray-200 bg-sky-50">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <Section id="concept" className="border-y border-gray-200 bg-sky-50">
         <Reveal>
           <SectionHeading
             accent="sky"
@@ -94,7 +93,6 @@ export default function ConceptFlow() {
             <StepCard key={step.title} step={step} index={i + 1} />
           ))}
         </Stagger>
-      </div>
-    </section>
+    </Section>
   );
 }
