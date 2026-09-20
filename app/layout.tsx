@@ -3,6 +3,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import type { Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "پلتفرم تدریس اسلامی رستادی | قرآن رو بخون، بفهم، زندگی کن",
@@ -32,6 +33,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         className={`min-h-screen flex flex-col bg-white text-black antialiased`}
       >
         <SmoothScroll>{children}</SmoothScroll>
+
+        <Analytics />
       </body>
     </html>
   );
