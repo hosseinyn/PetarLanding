@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import type { Viewport } from 'next';
 
 export const metadata: Metadata = {
   title: "پلتفرم تدریس اسلامی رستادی | قرآن رو بخون، بفهم، زندگی کن",
@@ -15,6 +16,14 @@ export const metadata: Metadata = {
     locale: "fa_IR",
   },
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
+}
+
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
