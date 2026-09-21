@@ -41,4 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 PRD.md 
-PRD-AI.md
+PRD-AI-BUSINESS.md
+PRD-AI-TECHNICAL.md 
+
+.playwright-mcp
