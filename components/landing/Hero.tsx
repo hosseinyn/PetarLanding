@@ -67,7 +67,7 @@ export default function Hero() {
           <motion.div variants={entrance} custom={0.3} className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <motion.div whileTap={reduce === true ? undefined : { scale: 0.97 }}>
               <Button href={LEAD_FORM_HREF} className="w-full sm:w-auto">
-                رایگان شروع کن
+                پیش ثبت نام کن
               </Button>
             </motion.div>
             <motion.div whileTap={reduce === true ? undefined : { scale: 0.97 }}>

@@ -162,7 +162,7 @@ export function validateSchoolName(raw: string): string | undefined {
 
 export function validatePhone(raw: string): string | undefined {
   if (raw.trim().length === 0) {
-    return undefined;
+    return "وارد کردن شماره موبایل الزامیه.";
   }
   const cleaned = toEnglishDigits(raw).replace(/[\s\-().]/g, "");
   if (/[A-Za-z\u0600-\u06FF]/.test(cleaned)) {

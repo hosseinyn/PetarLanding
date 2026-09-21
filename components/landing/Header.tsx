@@ -78,7 +78,7 @@ export default function Header() {
           </nav>
           <div className="hidden lg:block">
             <Button href={LEAD_FORM_HREF} className="min-h-10 rounded-full px-5 py-2 text-sm">
-              رایگان شروع کن
+              پیش ثبت نام کن
             </Button>
           </div>
           <button
@@ -123,7 +123,7 @@ export default function Header() {
             </ul>
             <div onClick={() => setOpen(false)}>
               <Button href={LEAD_FORM_HREF} className="mt-2 w-full rounded-full" ariaLabel="شروع رایگان در پلتفرم تدریس اسلامی رستادی">
-                رایگان شروع کن
+                پیش ثبت نام کن
               </Button>
             </div>
           </motion.nav>

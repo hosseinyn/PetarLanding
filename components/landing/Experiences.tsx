@@ -64,7 +64,7 @@ export default function Experiences() {
         <Reveal delay={100}>
           <div className="mt-8 flex justify-center">
             <Button href={LEAD_FORM_HREF} variant="secondary">
-              این تجربه ها رو رایگان شروع کن
+              همین الان پیش ثبت نام کن
               <ArrowLeft className="size-4" aria-hidden="true" />
             </Button>
           </div>

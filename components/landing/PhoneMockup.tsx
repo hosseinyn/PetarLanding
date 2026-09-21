@@ -143,7 +143,7 @@ export default function PhoneMockup() {
           <Reveal delay={120}>
             <div className="mt-8 flex items-center gap-3">
               <Button href={LEAD_FORM_HREF}>
-                رایگان شروع کن
+                پیش ثبت نام کن
               </Button>
               <span className="inline-flex items-center gap-1.5 text-sm text-black/60">
                 <Check className="size-4 text-green-600" aria-hidden="true" />

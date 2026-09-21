@@ -1,0 +1,685 @@
+Project petar {
+  database_type: 'PostgreSQL'
+  Note: 'Petar learning experience platform. One row per real world fact. Money style ledger for points. Content is draft until published.'
+}
+
+Enum user_role {
+  student [note: 'Learner. Only role that earns points and appears on leaderboards.']
+  staff [note: 'Content team. Creates and edits drafts. Review right comes from can_review flag.']
+  admin [note: 'Platform manager. Final approval, publishing, users and reports.']
+}
+
+Enum account_status {
+  active
+  blocked [note: 'Login and leaderboard excluded. Data is kept.']
+  deleted [note: 'Soft deleted. Never hard deleted without a documented order.']
+}
+
+Enum content_status {
+  draft [note: 'Being written. Only visible in studio.']
+  in_review [note: 'Sent to reviewer. Locked for the creator.']
+  returned [note: 'Sent back to creator with a written note.']
+  approved [note: 'Reviewer confirmed. Waiting for admin publish decision.']
+  published [note: 'Public for all users. Only this state is visible outside studio.']
+  archived [note: 'Out of reach. History is kept.']
+}
+
+Enum experience_level {
+  beginner
+  intermediate
+  advanced
+}
+
+Enum experience_type {
+  story
+  scenario
+  concept
+}
+
+Enum step_kind {
+  intro
+  verse
+  translation
+  concept
+  context
+  scenario
+  question
+  activity
+  reflection
+}
+
+Enum activity_type {
+  multiple_choice
+  true_false
+  matching
+  scenario_selection
+  ordering
+  short_answer
+  reflection
+}
+
+Enum revelation_type {
+  makki
+  madani
+}
+
+Enum verification_purpose {
+  signup
+  login
+  password_reset
+  change_contact
+}
+
+Enum point_reason {
+  experience_complete
+  activity_correct
+  quiz_pass
+  path_complete
+  reflection
+  streak_day
+}
+
+Enum badge_rule {
+  first_experience
+  ten_correct_streak
+  streak_7
+  first_path
+  twenty_reflections
+  perfect_quiz
+  campaign_special
+}
+
+Enum notification_type {
+  new_content
+  achievement
+  campaign
+  streak_reminder
+}
+
+Enum school_status {
+  prospect [note: 'In negotiation.']
+  active [note: 'Cooperating school.']
+  inactive [note: 'Cooperation ended.']
+}
+
+Enum audit_action {
+  publish
+  archive
+  return_to_review
+  block_user
+  unblock_user
+  create_staff
+  change_campaign
+  delete_data
+}
+
+Table users {
+  id bigint [pk, increment, note: 'Stable internal id. Everything points here so login identifiers can change safely.']
+  username varchar(150) [unique, null, note: 'Optional login name. Unique only when filled.']
+  email varchar(255) [unique, null, note: 'Login, codes and messages. Unique only when filled.']
+  phone varchar(20) [unique, null, note: 'Main student login. Unique only when filled.']
+  password_hash varchar(255) [null, note: 'Never plain text. Null for code only accounts.']
+  display_name varchar(100) [not null, note: 'Public name. Free to change and duplicates allowed.']
+  avatar_url varchar(500) [null, note: 'Profile picture file address.']
+  role user_role [not null, default: 'student', note: 'Base of every permission check.']
+  can_review boolean [not null, default: false, note: 'Reviewer flag inside staff. Separates review right from creator right.']
+  status account_status [not null, default: 'active', note: 'Block without deleting history.']
+  failed_login_count integer [not null, default: 0, note: 'Consecutive failures. Drives temporary lock.']
+  locked_until timestamptz [null, note: 'End of temporary lock.']
+  last_login_at timestamptz [null, note: 'Last success. Used for return analysis.']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    email [name: 'ix_users_email']
+    phone [name: 'ix_users_phone']
+  }
+}
+
+Table verification_codes {
+  id bigint [pk, increment]
+  user_id bigint [null, note: 'Owner. Null when account is not created yet.']
+  target varchar(255) [not null, note: 'Where the code was sent. Phone or email.']
+  purpose verification_purpose [not null, note: 'A signup code can never be used for password reset.']
+  code_hash varchar(255) [not null, note: 'Hashed so a database leak does not leak active codes.']
+  attempts integer [not null, default: 0, note: 'Guess counter. Caps brute force.']
+  expires_at timestamptz [not null, note: 'Short life. About five minutes.']
+  used_at timestamptz [null, note: 'Single use. A consumed code never works again.']
+  created_at timestamptz [not null, default: `now()`, note: 'Drives resend cooldown.']
+
+  indexes {
+    target [name: 'ix_codes_target']
+    expires_at [name: 'ix_codes_expires']
+  }
+}
+
+Table surahs {
+  id bigint [pk, increment]
+  number integer [unique, not null, note: 'Standard order from 1 to 114.']
+  title_fa varchar(100) [not null]
+  title_ar varchar(100) [not null]
+  verses_count integer [not null, note: 'Completeness check for imports.']
+  revelation revelation_type [not null]
+  intro_fa text [null, note: 'Short intro shown on the surah page.']
+}
+
+Table verses {
+  id bigint [pk, increment]
+  surah_id bigint [not null, note: 'Owner surah. Tree structure and navigation.']
+  number integer [not null, note: 'Number inside the surah. Standard address.']
+  text_ar text [not null, note: 'Source text. Comes from a fixed trusted source.']
+  translation_fa text [not null, note: 'Fluent translation for Persian readers.']
+  audio_url varchar(500) [null, note: 'Recitation file. Missing audio never breaks the page.']
+  status content_status [not null, default: 'published']
+
+  indexes {
+    (surah_id, number) [unique, name: 'uq_verse_address']
+  }
+}
+
+Table topics {
+  id bigint [pk, increment]
+  title_fa varchar(100) [not null, note: 'Shown on cards and filters.']
+  slug varchar(100) [unique, not null, note: 'Clean stable address for the topic page.']
+  description_fa text [null]
+  image_url varchar(500) [null]
+  display_order integer [not null, default: 0, note: 'Manual editorial ordering.']
+  status content_status [not null, default: 'draft']
+}
+
+Table concepts {
+  id bigint [pk, increment, note: 'Bridge between a verse and an experience.']
+  title_fa varchar(150) [not null]
+  summary_fa text [not null, note: 'One or two sentences. Fast understanding.']
+  status content_status [not null, default: 'draft']
+  created_at timestamptz [not null, default: `now()`]
+}
+
+Table experiences {
+  id bigint [pk, increment, note: 'Heart of the product. One learning goal each.']
+  title_fa varchar(200) [not null]
+  goal_fa text [not null, note: 'Plain language promise shown before start.']
+  level experience_level [not null, note: 'Filtering and suggestions.']
+  type experience_type [not null, note: 'Story, scenario or concept flavor.']
+  cover_url varchar(500) [null]
+  estimated_minutes integer [not null, note: 'Expectation management and time filter.']
+  points integer [not null, default: 10, note: 'Reward shown before start.']
+  order_hint varchar(255) [null, note: 'Author note for path builders.']
+  status content_status [not null, default: 'draft', note: 'Drafts never reach users.']
+  published_at timestamptz [null, note: 'Newest first ordering and reports.']
+  created_by bigint [null, note: 'Author responsibility.']
+  approved_by bigint [null, note: 'Final approver of religious content.']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    status [name: 'ix_exp_status']
+    published_at [name: 'ix_exp_published']
+  }
+}
+
+Table experience_steps {
+  id bigint [pk, increment, note: 'One of the nine fixed steps.']
+  experience_id bigint [not null, note: 'Owner experience. Deleted with it.']
+  step_order smallint [not null, note: 'Position from 1 to 9. Drives the progress bar.']
+  kind step_kind [not null, note: 'Each kind renders differently.']
+  title_fa varchar(200) [not null]
+  body_fa text [not null, note: 'Main learning text of the step.']
+  media_url varchar(500) [null, note: 'Optional image or audio per step.']
+
+  indexes {
+    (experience_id, step_order) [unique, name: 'uq_step_order']
+  }
+}
+
+Table activities {
+  id bigint [pk, increment, note: 'Interactive practice. Always lives inside one experience.']
+  experience_id bigint [not null]
+  type activity_type [not null, note: 'Selects the renderer and the grading logic.']
+  question_fa text [not null]
+  explanation_fa text [not null, note: 'Teaching note after the answer. Required for publishing.']
+  points integer [not null, default: 5]
+  step_order smallint [not null, default: 0, note: 'Order inside multi activity experiences.']
+  status content_status [not null, default: 'draft']
+}
+
+Table activity_options {
+  id bigint [pk, increment, note: 'Answers are stored by id, never by text.']
+  activity_id bigint [not null]
+  text_fa text [not null]
+  is_correct boolean [not null, default: false, note: 'Server side grading. Client is never trusted.']
+  feedback_fa text [null, note: 'Why this option is right or wrong.']
+  display_order smallint [not null, default: 0]
+}
+
+Table quizzes {
+  id bigint [pk, increment, note: 'Short review exam. Three to seven questions.']
+  title_fa varchar(200) [not null]
+  description_fa text [null]
+  pass_score integer [not null, note: 'Pass line. Gates path badges.']
+  time_limit_seconds integer [null, note: 'Optional time challenge.']
+  status content_status [not null, default: 'draft']
+  created_by bigint [null]
+  created_at timestamptz [not null, default: `now()`]
+}
+
+Table quiz_questions {
+  id bigint [pk, increment]
+  quiz_id bigint [not null]
+  text_fa text [not null]
+  options jsonb [not null, note: 'Options with the correct one marked. Inline because quiz options need no separate feedback rows.']
+  correct_index integer [not null, note: 'Server side grading key.']
+  explanation_fa text [not null, note: 'Always shown after the exam so review completes learning.']
+  score integer [not null, note: 'Weight of this question in the total.']
+  display_order smallint [not null, default: 0, note: 'Fixed fair order.']
+}
+
+Table learning_paths {
+  id bigint [pk, increment, note: 'Multi step program with one goal.']
+  title_fa varchar(200) [not null]
+  goal_fa text [not null]
+  cover_url varchar(500) [null]
+  estimated_minutes integer [not null, note: 'Total time expectation.']
+  final_quiz_id bigint [null, note: 'Closing exam. Required before the badge.']
+  badge_id bigint [null, note: 'Identity reward for finishing.']
+  points integer [not null, default: 30, note: 'Big reward for big commitment.']
+  status content_status [not null, default: 'draft']
+  created_by bigint [null]
+  created_at timestamptz [not null, default: `now()`]
+}
+
+Table path_items {
+  id bigint [pk, increment, note: 'One step of a path. A pointer, never a copy.']
+  path_id bigint [not null]
+  experience_id bigint [not null, note: 'Linked content. Editing the experience updates every path.']
+  item_order smallint [not null, note: 'Purposeful teaching order.']
+
+  indexes {
+    (path_id, item_order) [unique, name: 'uq_path_order']
+    (path_id, experience_id) [unique, name: 'uq_path_experience']
+  }
+}
+
+Table campaigns {
+  id bigint [pk, increment, note: 'Time boxed program such as Ramadan.']
+  title_fa varchar(200) [not null]
+  message_fa text [not null, note: 'Main inviting message.']
+  banner_url varchar(500) [null]
+  starts_at timestamptz [not null, note: 'Banner auto activates here.']
+  ends_at timestamptz [not null, note: 'Banner auto deactivates here. After this the page is archive.']
+  is_pinned boolean [not null, default: false, note: 'Display priority on home.']
+  status content_status [not null, default: 'draft', note: 'Editorial decision. Independent from the calendar window.']
+  created_by bigint [null]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    starts_at [name: 'ix_camp_start']
+    ends_at [name: 'ix_camp_end']
+  }
+}
+
+Table experience_topics {
+  experience_id bigint [not null]
+  topic_id bigint [not null]
+
+  indexes {
+    (experience_id, topic_id) [pk]
+  }
+}
+
+Table experience_concepts {
+  experience_id bigint [not null]
+  concept_id bigint [not null]
+
+  indexes {
+    (experience_id, concept_id) [pk]
+  }
+}
+
+Table experience_verses {
+  experience_id bigint [not null, note: 'Two way bridge between experience and verse pages.']
+  verse_id bigint [not null]
+
+  indexes {
+    (experience_id, verse_id) [pk]
+  }
+}
+
+Table concept_topics {
+  concept_id bigint [not null]
+  topic_id bigint [not null]
+
+  indexes {
+    (concept_id, topic_id) [pk]
+  }
+}
+
+Table concept_verses {
+  concept_id bigint [not null, note: 'Quranic evidence behind the concept.']
+  verse_id bigint [not null]
+
+  indexes {
+    (concept_id, verse_id) [pk]
+  }
+}
+
+Table campaign_experiences {
+  campaign_id bigint [not null]
+  experience_id bigint [not null]
+  display_order smallint [not null, default: 0]
+
+  indexes {
+    (campaign_id, experience_id) [pk]
+  }
+}
+
+Table campaign_paths {
+  campaign_id bigint [not null]
+  path_id bigint [not null]
+  display_order smallint [not null, default: 0]
+
+  indexes {
+    (campaign_id, path_id) [pk]
+  }
+}
+
+Table experience_progress {
+  id bigint [pk, increment, note: 'Report card row. One per user per experience.']
+  user_id bigint [not null]
+  experience_id bigint [not null]
+  started_at timestamptz [not null, default: `now()`, note: 'Feeds streak and duration stats.']
+  last_step_order smallint [not null, default: 1, note: 'Resume point. Continue goes straight here.']
+  completed_at timestamptz [null, note: 'Set only when activity is done and reflection is saved. Reading alone never completes.']
+  reflection_text text [null, note: 'Private personal note. Never public.']
+  points_earned integer [not null, default: 0, note: 'Transparent per experience total.']
+
+  indexes {
+    (user_id, experience_id) [unique, name: 'uq_progress_user_exp']
+  }
+}
+
+Table activity_attempts {
+  id bigint [pk, increment, note: 'Every try is kept. History powers difficulty analysis.']
+  user_id bigint [not null]
+  activity_id bigint [not null]
+  selected_ids jsonb [not null, note: 'Chosen option ids. Powers common mistake analysis.']
+  is_correct boolean [not null]
+  score_earned integer [not null, default: 0, note: 'First try pays full. Later tries pay less.']
+  duration_seconds integer [not null, default: 0, note: 'Question difficulty signal.']
+  created_at timestamptz [not null, default: `now()`, note: 'Orders tries. First try detection.']
+
+  indexes {
+    (user_id, activity_id, created_at) [name: 'ix_attempt_user_act']
+  }
+}
+
+Table quiz_attempts {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  quiz_id bigint [not null]
+  answers jsonb [not null, note: 'All answers. Reviewable and gradable.']
+  score integer [not null]
+  passed boolean [not null, note: 'Gates path badges.']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (user_id, quiz_id, created_at) [name: 'ix_qattempt_user_quiz']
+  }
+}
+
+Table path_progress {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  path_id bigint [not null]
+  completed_count integer [not null, default: 0, note: 'Really finished steps only.']
+  total_count integer [not null, note: 'Frozen at start. Later added steps never break old percentages.']
+  completed_at timestamptz [null, note: 'Triggers badge and final points.']
+
+  indexes {
+    (user_id, path_id) [unique, name: 'uq_pathprog_user_path']
+  }
+}
+
+Table saved_experiences {
+  user_id bigint [not null, note: 'My saves list.']
+  experience_id bigint [not null]
+  saved_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (user_id, experience_id) [pk]
+  }
+}
+
+Table point_transactions {
+  id bigint [pk, increment, note: 'Ledger. Balance is always the sum of this table. Every change stays transparent and auditable.']
+  user_id bigint [not null]
+  amount integer [not null, note: 'Positive earn or negative correction.']
+  reason point_reason [not null, note: 'Tells the user where points came from.']
+  reference_id varchar(100) [null, note: 'Related record id. Blocks double pay for the same act.']
+  created_at timestamptz [not null, default: `now()`, note: 'Weekly leaderboard window.']
+
+  indexes {
+    (user_id, created_at) [name: 'ix_points_user_time']
+    (user_id, reason, reference_id) [unique, name: 'uq_points_idem']
+  }
+}
+
+Table badges {
+  id bigint [pk, increment, note: 'Badge template. New badges need no code change.']
+  code varchar(50) [unique, not null, note: 'English key. Logic points here, not to numeric ids.']
+  title_fa varchar(100) [not null, note: 'Display name on the wall.']
+  description_fa text [not null, note: 'How to earn. Motivates locked badges.']
+  image_url varchar(500) [null, note: 'Medal picture.']
+  rule badge_rule [not null, note: 'Auto award condition checked by the gamification engine.']
+  is_active boolean [not null, default: true, note: 'Pause without deleting earned history.']
+}
+
+Table user_badges {
+  id bigint [pk, increment, note: 'One award event.']
+  user_id bigint [not null]
+  badge_id bigint [not null]
+  awarded_at timestamptz [not null, default: `now()`, note: 'Earn date shown on the wall.']
+
+  indexes {
+    (user_id, badge_id) [unique, name: 'uq_badge_once']
+  }
+}
+
+Table daily_streaks {
+  id bigint [pk, increment]
+  user_id bigint [unique, not null, note: 'Exactly one current streak row per user.']
+  current_days integer [not null, default: 0, note: 'Number shown to the user.']
+  longest_days integer [not null, default: 0, note: 'All time best. Survives a break.']
+  last_active_date date [null, note: 'Iran calendar day. Compares today against yesterday.']
+  updated_at timestamptz [not null, default: `now()`]
+}
+
+Table notifications {
+  id bigint [pk, increment]
+  user_id bigint [not null, note: 'Strictly personal.']
+  type notification_type [not null]
+  title_fa varchar(200) [not null]
+  body_fa text [not null]
+  link varchar(500) [null, note: 'Destination page such as the related experience.']
+  is_read boolean [not null, default: false, note: 'Unread badge counter.']
+  created_at timestamptz [not null, default: `now()`, note: 'Newest first ordering.']
+
+  indexes {
+    (user_id, is_read, created_at) [name: 'ix_notif_user']
+  }
+}
+
+Table schools {
+  id bigint [pk, increment, note: 'Smart address book only. No login, no panel, no access of any kind.']
+  name varchar(200) [not null]
+  city varchar(100) [not null, note: 'Regional reports and planning.']
+  contact_name varchar(100) [not null, note: 'Who we talk to.']
+  contact_phone varchar(20) [not null, note: 'Cooperation follow up.']
+  status school_status [not null, default: 'prospect']
+  notes text [null, note: 'Negotiation history and promises.']
+  created_by bigint [null, note: 'Record owner.']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+}
+
+Table search_logs {
+  id bigint [pk, increment, note: 'Aggregate demand signal. Never linked to a name in reports.']
+  user_id bigint [null, note: 'Nullable on purpose. Stats stay collective.']
+  query_text varchar(255) [not null, note: 'What was typed. Tells editors what topics are wanted.']
+  filters jsonb [null, note: 'Which filters were combined.']
+  results_count integer [not null, default: 0, note: 'Zero result searches flag content gaps.']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    created_at [name: 'ix_search_time']
+  }
+}
+
+Table verse_views {
+  id bigint [pk, increment, note: 'Popularity counter for editorial decisions.']
+  verse_id bigint [not null]
+  user_id bigint [null, note: 'Nullable so anonymous reading still counts.']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (verse_id, created_at) [name: 'ix_vview_verse_time']
+  }
+}
+
+Table page_views {
+  id bigint [pk, increment, note: 'Simple traffic counter for pages such as home and campaign.']
+  path varchar(255) [not null, note: 'Which page was seen.']
+  user_id bigint [null]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (path, created_at) [name: 'ix_pview_path_time']
+  }
+}
+
+Table audit_logs {
+  id bigint [pk, increment, note: 'Read only diary of sensitive acts. Publish, block, delete.']
+  actor_id bigint [null, note: 'Who did it. Kept even if the actor is later removed.']
+  action audit_action [not null]
+  target_type varchar(50) [not null, note: 'Which kind of record was touched.']
+  target_id varchar(50) [not null, note: 'Exact record address.']
+  detail jsonb [null, note: 'Change payload. Rebuilds what happened.']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (target_type, target_id) [name: 'ix_audit_target']
+    created_at [name: 'ix_audit_time']
+  }
+}
+
+Ref: verification_codes.user_id > users.id [delete: cascade]
+Ref: verses.surah_id > surahs.id [delete: restrict]
+Ref: experience_steps.experience_id > experiences.id [delete: cascade]
+Ref: experiences.created_by > users.id [delete: set null]
+Ref: experiences.approved_by > users.id [delete: set null]
+Ref: activities.experience_id > experiences.id [delete: cascade]
+Ref: activity_options.activity_id > activities.id [delete: cascade]
+Ref: quiz_questions.quiz_id > quizzes.id [delete: cascade]
+Ref: quizzes.created_by > users.id [delete: set null]
+Ref: learning_paths.final_quiz_id > quizzes.id [delete: set null]
+Ref: learning_paths.badge_id > badges.id [delete: set null]
+Ref: learning_paths.created_by > users.id [delete: set null]
+Ref: path_items.path_id > learning_paths.id [delete: cascade]
+Ref: path_items.experience_id > experiences.id [delete: restrict]
+Ref: campaigns.created_by > users.id [delete: set null]
+Ref: experience_topics.experience_id > experiences.id [delete: cascade]
+Ref: experience_topics.topic_id > topics.id [delete: cascade]
+Ref: experience_concepts.experience_id > experiences.id [delete: cascade]
+Ref: experience_concepts.concept_id > concepts.id [delete: cascade]
+Ref: experience_verses.experience_id > experiences.id [delete: cascade]
+Ref: experience_verses.verse_id > verses.id [delete: restrict]
+Ref: concept_topics.concept_id > concepts.id [delete: cascade]
+Ref: concept_topics.topic_id > topics.id [delete: cascade]
+Ref: concept_verses.concept_id > concepts.id [delete: cascade]
+Ref: concept_verses.verse_id > verses.id [delete: restrict]
+Ref: campaign_experiences.campaign_id > campaigns.id [delete: cascade]
+Ref: campaign_experiences.experience_id > experiences.id [delete: cascade]
+Ref: campaign_paths.campaign_id > campaigns.id [delete: cascade]
+Ref: campaign_paths.path_id > learning_paths.id [delete: cascade]
+Ref: experience_progress.user_id > users.id [delete: cascade]
+Ref: experience_progress.experience_id > experiences.id [delete: cascade]
+Ref: activity_attempts.user_id > users.id [delete: cascade]
+Ref: activity_attempts.activity_id > activities.id [delete: cascade]
+Ref: quiz_attempts.user_id > users.id [delete: cascade]
+Ref: quiz_attempts.quiz_id > quizzes.id [delete: cascade]
+Ref: path_progress.user_id > users.id [delete: cascade]
+Ref: path_progress.path_id > learning_paths.id [delete: cascade]
+Ref: saved_experiences.user_id > users.id [delete: cascade]
+Ref: saved_experiences.experience_id > experiences.id [delete: cascade]
+Ref: point_transactions.user_id > users.id [delete: cascade]
+Ref: user_badges.user_id > users.id [delete: cascade]
+Ref: user_badges.badge_id > badges.id [delete: restrict]
+Ref: daily_streaks.user_id > users.id [delete: cascade]
+Ref: notifications.user_id > users.id [delete: cascade]
+Ref: schools.created_by > users.id [delete: set null]
+Ref: search_logs.user_id > users.id [delete: set null]
+Ref: verse_views.verse_id > verses.id [delete: cascade]
+Ref: verse_views.user_id > users.id [delete: set null]
+Ref: page_views.user_id > users.id [delete: set null]
+Ref: audit_logs.actor_id > users.id [delete: set null]
+
+TableGroup accounts {
+  users
+  verification_codes
+}
+
+TableGroup quran {
+  surahs
+  verses
+  verse_views
+}
+
+TableGroup content {
+  topics
+  concepts
+  concept_topics
+  concept_verses
+  experiences
+  experience_steps
+  experience_topics
+  experience_concepts
+  experience_verses
+  activities
+  activity_options
+  quizzes
+  quiz_questions
+  learning_paths
+  path_items
+  campaigns
+  campaign_experiences
+  campaign_paths
+}
+
+TableGroup learning {
+  experience_progress
+  activity_attempts
+  quiz_attempts
+  path_progress
+  saved_experiences
+  search_logs
+  page_views
+}
+
+TableGroup gamification {
+  point_transactions
+  badges
+  user_badges
+  daily_streaks
+}
+
+TableGroup engagement {
+  notifications
+}
+
+TableGroup organization {
+  schools
+}
+
+TableGroup system {
+  audit_logs
+}

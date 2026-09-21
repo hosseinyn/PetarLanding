@@ -80,7 +80,7 @@ export async function POST(request: Request) {
 
     formParams.append(
       GOOGLE_FORM_ENTRY_IDS.phone,
-      values.phone.trim() === "" ? "" : normalizePhone(values.phone)
+      normalizePhone(values.phone)
     );
 
     formParams.append(
