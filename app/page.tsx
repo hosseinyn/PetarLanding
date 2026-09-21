@@ -32,8 +32,8 @@ export default function Home() {
           <Paths />
         <CampaignBanner />
         <PhoneMockup />
+        <LeadForm />
         <FAQ />
-          <LeadForm />
         </main>
         <Footer />
       </div>
