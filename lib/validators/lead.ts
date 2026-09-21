@@ -5,6 +5,7 @@ export const FULL_NAME_MAX_LENGTH = 80;
 export const SCHOOL_NAME_MIN_LENGTH = 3;
 export const SCHOOL_NAME_MAX_LENGTH = 100;
 export const MESSAGE_MAX_LENGTH = 1000;
+export const ABOUT_MAX_LENGTH = 500;
 
 const PHONE_FORMAT_ERROR =
   "شماره موبایل باید 11 رقم باشه و با 09 شروع بشه. مثل 09123456789";
@@ -39,6 +40,45 @@ export const gradePayloadLabels: Record<string, string> = {
   "11": "یازدهم",
   "12": "دوازدهم",
 };
+
+export const traitOptions = [
+  "کنجکاو",
+  "مذهبی",
+  "منطقی",
+  "اهل رقابت",
+  "خلاق",
+  "خجالتی",
+  "اجتماعی",
+  "پرانرژی",
+  "دقیق",
+  "خیال پرداز",
+  "شوخ طبع",
+  "مسئولیت پذیر",
+];
+
+export const freeTimeActivityOptions = [
+  "ورزش",
+  "گیم",
+  "اینستاگرام و تیک تاک",
+  "یوتیوب",
+  "مطالعه",
+  "برنامه نویسی",
+  "بیرون رفتن",
+  "فیلم و سریال",
+  "موسیقی",
+  "نقاشی و هنر",
+  "بازی فکری",
+];
+
+export const COMPETITION_MIN_RATING = 1;
+export const COMPETITION_MAX_RATING = 4;
+
+export function serializeMultiSelect(selected: string[], options: string[]): string {
+  const order = new Map(options.map((option, index) => [option, index]));
+  return [...selected]
+    .sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0))
+    .join("، ");
+}
 
 export function toEnglishDigits(value: string): string {
   const fa = "۰۱۲۳۴۵۶۷۸۹";
@@ -195,6 +235,116 @@ export function validateMessage(raw: string): string | undefined {
   return undefined;
 }
 
+export function validateTraits(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null || raw === "") {
+    return undefined;
+  }
+  if (typeof raw === "string") {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return undefined;
+    }
+    if (!traitOptions.includes(value)) {
+      return "صفت انتخاب شده معتبر نیست.";
+    }
+    return undefined;
+  }
+  if (!Array.isArray(raw)) {
+    return "صفت انتخاب شده معتبر نیست.";
+  }
+  if (raw.length === 0) {
+    return undefined;
+  }
+  const cleaned: string[] = [];
+  for (const item of raw) {
+    if (typeof item !== "string") {
+      return "صفت انتخاب شده معتبر نیست.";
+    }
+    const value = item.trim();
+    if (value.length === 0) {
+      return "صفت انتخاب شده معتبر نیست.";
+    }
+    if (!traitOptions.includes(value)) {
+      return "صفت انتخاب شده معتبر نیست.";
+    }
+    cleaned.push(value);
+  }
+  if (new Set(cleaned).size !== cleaned.length) {
+    return "هر صفت رو فقط یک بار میشه انتخاب کرد.";
+  }
+  return undefined;
+}
+
+export function validateCompetitionRating(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null || raw === "") {
+    return undefined;
+  }
+  if (typeof raw !== "number" || !Number.isInteger(raw)) {
+    return "امتیاز رقابت باید بین 1 تا 4 باشه.";
+  }
+  if (raw < COMPETITION_MIN_RATING || raw > COMPETITION_MAX_RATING) {
+    return "امتیاز رقابت باید بین 1 تا 4 باشه.";
+  }
+  return undefined;
+}
+
+export function validateFreeTimeActivities(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null || raw === "") {
+    return undefined;
+  }
+  if (typeof raw === "string") {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return undefined;
+    }
+    if (!freeTimeActivityOptions.includes(value)) {
+      return "فعالیت انتخاب شده معتبر نیست.";
+    }
+    return undefined;
+  }
+  if (!Array.isArray(raw)) {
+    return "فعالیت انتخاب شده معتبر نیست.";
+  }
+  if (raw.length === 0) {
+    return undefined;
+  }
+  const cleaned: string[] = [];
+  for (const item of raw) {
+    if (typeof item !== "string") {
+      return "فعالیت انتخاب شده معتبر نیست.";
+    }
+    const value = item.trim();
+    if (value.length === 0) {
+      return "فعالیت انتخاب شده معتبر نیست.";
+    }
+    if (!freeTimeActivityOptions.includes(value)) {
+      return "فعالیت انتخاب شده معتبر نیست.";
+    }
+    cleaned.push(value);
+  }
+  if (new Set(cleaned).size !== cleaned.length) {
+    return "هر فعالیت رو فقط یک بار میشه انتخاب کرد.";
+  }
+  return undefined;
+}
+
+export function validateAboutYourself(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null) {
+    return undefined;
+  }
+  if (typeof raw !== "string") {
+    return "معرفیت معتبر نیست.";
+  }
+  const value = raw.trim();
+  if (value.length === 0) {
+    return undefined;
+  }
+  if (value.length > ABOUT_MAX_LENGTH) {
+    return "معرفیت خیلی طولانیه. خلاصه تر بنویس.";
+  }
+  return undefined;
+}
+
 export function validateLeadForm(v: LeadFormValues): LeadFormErrors {
   const next: LeadFormErrors = {};
   const fullNameError = validateFullName(v.fullName);
@@ -220,6 +370,22 @@ export function validateLeadForm(v: LeadFormValues): LeadFormErrors {
   const messageError = validateMessage(v.message);
   if (messageError !== undefined) {
     next.message = messageError;
+  }
+  const traitsError = validateTraits(v.traits);
+  if (traitsError !== undefined) {
+    next.traits = traitsError;
+  }
+  const competitionError = validateCompetitionRating(v.competitionRating);
+  if (competitionError !== undefined) {
+    next.competitionRating = competitionError;
+  }
+  const activitiesError = validateFreeTimeActivities(v.freeTimeActivities);
+  if (activitiesError !== undefined) {
+    next.freeTimeActivities = activitiesError;
+  }
+  const aboutError = validateAboutYourself(v.aboutYourself);
+  if (aboutError !== undefined) {
+    next.aboutYourself = aboutError;
   }
   return next;
 }

@@ -5,6 +5,10 @@ export interface LeadFormValues {
   schoolName: string;
   phone: string;
   message: string;
+  traits: string[];
+  competitionRating: number | "";
+  freeTimeActivities: string[];
+  aboutYourself: string;
 }
 
 export interface LeadFormErrors {
@@ -14,4 +18,8 @@ export interface LeadFormErrors {
   schoolName?: string;
   phone?: string;
   message?: string;
+  traits?: string;
+  competitionRating?: string;
+  freeTimeActivities?: string;
+  aboutYourself?: string;
 }
