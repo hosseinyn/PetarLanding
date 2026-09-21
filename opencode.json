@@ -1,10 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "magic-ui": {
-      "type": "remote",
-      "url": "https://mcp.so/servers/mcp-magic-ui",
-      "enabled" : true
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
     }
   }
 }

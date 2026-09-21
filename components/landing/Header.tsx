@@ -51,7 +51,7 @@ export default function Header() {
             <Image src="/images/logo.webp" width={32} height={32} alt="فناوری های آموزشی رستادی" title="فناوری های آموزشی رستادی" />
 
             <span className="hidden flex-col leading-none min-[400px]:flex">
-              <span className="text-lg font-semibold">پلترم تدریس اسلامی رستادی</span>
+              <span className="text-lg font-semibold">پلتفرم تدریس اسلامی رستادی</span>
               <span className="text-xs text-black/60">از آیه تا زندگی</span>
             </span>
           </a>

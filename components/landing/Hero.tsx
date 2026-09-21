@@ -32,7 +32,7 @@ export default function Hero() {
   const floatY = useTransform(scrollYProgress, [0, 1], [24, -24]);
 
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" className="relative isolate overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <svg
           viewBox="0 0 120 120"
@@ -46,17 +46,17 @@ export default function Hero() {
         <span className="absolute bottom-12 right-[36%] hidden size-2 rounded-full bg-yellow-400/70 lg:block" />
       </div>
       <Hero3D />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:grid-cols-2 lg:gap-8 lg:pb-24 lg:pt-16">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pb-16 pt-20 sm:px-6 sm:pt-14 lg:grid-cols-2 lg:gap-8 lg:pb-24 lg:pt-20">
         <motion.div
           initial={reduce === true ? false : "hidden"}
           animate="visible"
           className="flex flex-col items-start gap-6"
         >
-          <motion.p variants={entrance} custom={0} className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-black/60">
+          <motion.p variants={entrance} custom={0} className="relative z-10 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-black/60 shadow-sm">
             <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-green-500" />
             آموزش قرآن و دینی، به سبک تو
           </motion.p>
-          <motion.h1 variants={entrance} custom={0.1} className="text-4xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
+          <motion.h1 variants={entrance} custom={0.1} className="relative z-10 text-4xl font-semibold leading-tight [text-shadow:0_1px_0_rgba(255,255,255,0.95),0_8px_24px_rgba(255,255,255,0.9)] sm:text-5xl sm:leading-tight">
             <HeroHeadline />
           </motion.h1>
           <motion.p variants={entrance} custom={0.2} className="max-w-lg text-lg leading-9 text-black/60">

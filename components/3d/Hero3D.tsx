@@ -18,10 +18,10 @@ function Duo() {
   const halfW = viewport.width / 2;
   const quranScale = wide ? 1.8 : 1.0;
   const lanternScale = wide ? 1.15 : 0.65;
-  const quranX = wide ? Math.min(2.2, halfW - 0.9) : halfW * 0.42;
-  const quranY = wide ? -1.2 : 1.3;
-  const lanternX = wide ? Math.min(3.2, halfW - 0.5) : -halfW * 0.42;
-  const lanternY = wide ? 1.2 : 1.9;
+  const quranX = wide ? Math.min(1.7, halfW - 1.2) : halfW * 0.58;
+  const quranY = wide ? -1.35 : 1.35;
+  const lanternX = wide ? Math.min(2.5, halfW - 1.0) : -halfW * 0.58;
+  const lanternY = wide ? 1.6 : 2.2;
 
   useFrame((state, delta) => {
     if (ref.current === null) {
@@ -169,7 +169,7 @@ function HeroScene() {
 export default function Hero3D() {
   return (
     <SafeCanvas
-      className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
       fallback={<HeroFallback />}
       cameraPosition={[0, 0, 8]}
       cameraFov={36}

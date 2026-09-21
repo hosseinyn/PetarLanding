@@ -1,0 +1,493 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - banner [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - link "پلتفرم تدریس اسلامی رستادی، بازگشت به بالای صفحه" [ref=f1e6] [cursor=pointer]:
+          - /url: "#top"
+          - img "فناوری های آموزشی رستادی" [ref=f1e7]
+          - generic [ref=f1e8]:
+            - generic [ref=f1e9]: پلتفرم تدریس اسلامی رستادی
+            - generic [ref=f1e10]: از آیه تا زندگی
+        - navigation "ناوبری اصلی" [ref=f1e11]:
+          - link "از آیه تا زندگی" [ref=f1e12] [cursor=pointer]:
+            - /url: "#concept"
+          - link "تجربه ها" [ref=f1e17] [cursor=pointer]:
+            - /url: "#experiences"
+          - link "موضوعات" [ref=f1e20] [cursor=pointer]:
+            - /url: "#topics"
+          - link "مسیرها" [ref=f1e26] [cursor=pointer]:
+            - /url: "#paths"
+          - link "هوش مصنوعی" [ref=f1e29] [cursor=pointer]:
+            - /url: "#ai"
+          - link "سوالات" [ref=f1e33] [cursor=pointer]:
+            - /url: "#faq"
+        - link "پیش ثبت نام کن" [ref=f1e38] [cursor=pointer]:
+          - /url: "#lead"
+    - main [ref=f1e39]:
+      - generic [ref=f1e41]:
+        - generic [ref=f1e42]:
+          - paragraph [ref=f1e43]: آموزش قرآن و دینی، به سبک تو
+          - heading "قرآن رو بخون، بفهم، زندگی کن" [level=1] [ref=f1e45]
+          - paragraph [ref=f1e48]: "پلتفرم تدریس اسلامی رستادی قرآن، احکام و معارف شیعه رو با تجربه های کوتاه و باحال یادت میده: سناریو واقعی، بازی و سوال. هر تجربه فقط 10 دقیقه طول میکشه و آخرش یه چیز واقعی یاد گرفتی."
+          - generic [ref=f1e49]:
+            - link "پیش ثبت نام کن" [ref=f1e51] [cursor=pointer]:
+              - /url: "#lead"
+            - link "یه تجربه رو ببین" [ref=f1e53] [cursor=pointer]:
+              - /url: "#experiences"
+          - list [ref=f1e54]:
+            - listitem [ref=f1e55]: شروع رایگان
+            - listitem [ref=f1e56]: هر تجربه 10 دقیقه
+            - listitem [ref=f1e57]: محتوای تایید شده
+        - generic "پیش نمایش تجربه یادگیری در پلتفرم تدریس اسلامی رستادی" [ref=f1e59]:
+          - generic [ref=f1e60]:
+            - generic [ref=f1e66]:
+              - paragraph [ref=f1e67]: "سناریو امروز: نماز تو سفر"
+              - paragraph [ref=f1e68]: تو مسافری و وقت نمازه، چیکار میکنی؟
+            - generic [ref=f1e69]:
+              - generic [ref=f1e70]: کامل میخونم
+              - generic [ref=f1e71]: شکسته میخونم
+          - generic [ref=f1e72]:
+            - paragraph [ref=f1e76]: "رشته تو: 6 روز"
+            - paragraph [ref=f1e77]: فردا هم بیا، نشکنه
+          - generic [ref=f1e86]:
+            - paragraph [ref=f1e94]: نشان سوره کوثر
+            - paragraph [ref=f1e95]: تازه گرفتیش، آفرین
+            - generic [ref=f1e96]: 3 نشان از 12
+          - generic [ref=f1e100]:
+            - generic [ref=f1e101]:
+              - paragraph [ref=f1e102]: آیه امروز
+              - generic [ref=f1e103]: کمتر از یک دقیقه
+            - paragraph [ref=f1e104]: فَاذْکُرُونِی أَذْکُرْکُمْ وَاشْکُرُوا لِی وَلَا تَکْفُرُونِ
+            - paragraph [ref=f1e105]: پس من رو یاد کنید تا شما رو یاد کنم. (بقره، 152)
+      - generic [ref=f1e107]:
+        - generic [ref=f1e109]:
+          - generic [ref=f1e110]: ایده اصلی پلتفرم تدریس اسلامی رستادی
+          - heading "از آیه تا زندگی، تو 7 قدم" [level=2] [ref=f1e116]
+          - paragraph [ref=f1e118]: هر تجربه پلتفرم تدریس اسلامی رستادی همین راه رو میره. ببین با یه مثال واقعی، مثلا وضوی درست، هر قدم یعنی چی.
+        - generic [ref=f1e119]:
+          - article [ref=f1e123] [cursor=pointer]:
+            - generic [aria-hidden]: "1"
+            - generic [ref=f1e128]:
+              - generic [ref=f1e129]: آیه
+              - generic [ref=f1e130]: ترجمه
+              - generic [ref=f1e131]: مفهوم
+              - generic [ref=f1e132]: مثال
+              - generic [ref=f1e133]: سناریو
+              - generic [ref=f1e134]: فعالیت
+              - generic [ref=f1e135]: تامل
+            - heading "آیه" [level=3] [ref=f1e141]
+            - paragraph [ref=f1e142]: با متن اصلی قرآن شروع میکنی
+            - paragraph [ref=f1e143]: "ببین تو عمل: فَاغْسِلُوا وُجُوهَکُمْ وَأَیْدِیَکُمْ (مائده، 6)"
+          - article [ref=f1e145]:
+            - heading "ترجمه" [level=3] [ref=f1e152]
+            - paragraph [ref=f1e153]: معنی روانش رو میفهمی
+            - paragraph [ref=f1e154]: "ببین تو عمل: صورت و دست هات رو بشور"
+          - article [ref=f1e156]:
+            - heading "مفهوم" [level=3] [ref=f1e163]
+            - paragraph [ref=f1e164]: پیام اصلی آیه رو پیدا میکنی
+            - paragraph [ref=f1e165]: "ببین تو عمل: خدا پاکیزگی قبل از نماز رو دوست داره"
+          - article [ref=f1e167]:
+            - heading "مثال" [level=3] [ref=f1e178]
+            - paragraph [ref=f1e179]: با یک داستان واقعی لمسش میکنی
+            - paragraph [ref=f1e180]: "ببین تو عمل: مثل وقتی میخوای بری مهمونی، تمیز و مرتب میری"
+          - article [ref=f1e182]:
+            - heading "سناریو" [level=3] [ref=f1e188]
+            - paragraph [ref=f1e189]: خودت رو جای شخصیت میذاری
+            - paragraph [ref=f1e190]: "ببین تو عمل: صبح دیرت شده؛ وضو رو سرسری میگیری یا درست؟"
+          - article [ref=f1e192]:
+            - heading "فعالیت" [level=3] [ref=f1e198]
+            - paragraph [ref=f1e199]: با بازی و سوال تمرین میکنی
+            - paragraph [ref=f1e200]: "ببین تو عمل: قدم به قدم وضو بگیر و هر قدم رو تیک بزن"
+          - article [ref=f1e202]:
+            - heading "تامل" [level=3] [ref=f1e207]
+            - paragraph [ref=f1e208]: به زندگی خودت وصلش میکنی
+            - paragraph [ref=f1e209]: "ببین تو عمل: امروز وضوت چه حسی بهت داد؟ بنویس"
+      - generic [ref=f1e211]:
+        - generic [ref=f1e213]:
+          - generic [ref=f1e214]: چرا پلتفرم تدریس اسلامی رستادی باحاله
+          - heading "یادگیری که شبیه بازیه" [level=2] [ref=f1e216]
+          - paragraph [ref=f1e218]: هر کارت یه تیکه از تجربه پلتفرم تدریس اسلامی رستادیه. ببین چطور آیه، بازی و احکام به هم وصل میشن.
+        - generic [ref=f1e219]:
+          - article [ref=f1e221] [cursor=pointer]:
+            - generic [ref=f1e226]:
+              - generic [ref=f1e227]: آیه
+              - generic [ref=f1e228]: مفهوم
+              - generic [ref=f1e229]: فعالیت
+              - generic [ref=f1e230]: زندگی
+            - generic [ref=f1e237]:
+              - heading "هر تجربه یک سفر کوتاهه" [level=3] [ref=f1e238]
+              - paragraph [ref=f1e240]: از آیه شروع میکنی، قدم به قدم جلو میری و آخرش میرسی به زندگی خودت. نقشه راه همیشه جلو چشمته و میدونی قدم بعدی چیه.
+          - article [ref=f1e242] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e244]:
+              - generic [ref=f1e245]: گزینه الف
+              - generic [ref=f1e246]: گزینه ب
+              - generic [ref=f1e249]: گزینه ج
+            - generic [ref=f1e255]:
+              - heading "کوییز کوتاه، بدون استرس" [level=3] [ref=f1e256]
+              - paragraph [ref=f1e258]: بعد هر تجربه چند تا سوال کوتاه جواب میدی و همون لحظه نتیجه رو میبینی.
+          - article [ref=f1e260] [cursor=pointer]:
+            - generic [ref=f1e278]:
+              - heading "رشته یادگیری روزانه" [level=3] [ref=f1e279]
+              - paragraph [ref=f1e281]: هر روز که یاد بگیری یک روز به رشته تو اضافه میشه. نشکستن رشته حسابی حال میده.
+          - article [ref=f1e283] [cursor=pointer]:
+            - generic [ref=f1e305]:
+              - heading "نشان جمع کن" [level=3] [ref=f1e306]
+              - paragraph [ref=f1e308]: با تموم کردن تجربه ها و مسیرها نشان میگیری و صفحه پیشرفتت رنگی تر میشه.
+          - article [ref=f1e310] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e312]:
+              - generic [ref=f1e313]: تو سفری و وقت نمازه، چیکار میکنی؟
+              - generic [ref=f1e314]: نماز شکسته میخونم
+              - generic [ref=f1e315]: وصل شد به نماز مسافر
+            - generic [ref=f1e323]:
+              - heading "سناریو واقعی، انتخاب با توئه" [level=3] [ref=f1e324]
+              - paragraph [ref=f1e326]: موقعیت های واقعی رو میبینی و انتخاب میکنی. بعد میفهمی انتخابت به کدوم آیه وصل بوده.
+          - article [ref=f1e328] [cursor=pointer]:
+            - generic [ref=f1e329]:
+              - heading "آیه امروز" [level=3] [ref=f1e330]
+              - paragraph [ref=f1e332]: هر روز یک آیه کوتاه با ترجمه روان. کمتر از یک دقیقه طول میکشه، ولی کل روز همراهته.
+            - generic [aria-hidden] [ref=f1e334]:
+              - paragraph [ref=f1e335]: وَقُولُوا لِلنَّاسِ حُسْنًا
+              - paragraph [ref=f1e336]: و با مردم به نیکی حرف بزنید. (بقره، 83)
+      - generic [ref=f1e338]:
+        - generic [ref=f1e340]:
+          - generic [ref=f1e341]: آینده پلتفرم تدریس اسلامی رستادی
+          - heading "هوش مصنوعی قراره چی کار کنه؟" [level=2] [ref=f1e347]
+          - paragraph [ref=f1e349]: داریم روی چیزای باحالی کار میکنیم که یادگیری قرآن رو شخصی و هوشمندتر میکنه.
+        - generic [ref=f1e352]:
+          - paragraph [ref=f1e354]: دستیار هوشمند پتار
+          - generic "گفتگوی دانش آموز با ربات پلتفرم تدریس اسلامی رستادی" [ref=f1e385]:
+            - paragraph [ref=f1e386]: این آیه رو نفهمیدم، یعنی چی؟
+            - paragraph [ref=f1e387]: باشه! بذار با یه مثال ساده بگم...
+            - paragraph [ref=f1e388]: آهان، حالا گرفتم!
+            - paragraph [ref=f1e389]: آنلاینه و آماده جوابه
+        - generic [ref=f1e393]:
+          - generic [ref=f1e394]: میفهمه کجای راهی
+          - generic [ref=f1e396]: قدم بعدی رو میچینه
+          - generic [ref=f1e398]: کوییز مخصوص تو میسازه
+        - paragraph [ref=f1e401]: این ها قراره بیاد، هنوز نیومده. داریم روشون کار میکنیم تا یادگیری قرآن باهوش تر بشه.
+        - generic [ref=f1e406]:
+          - article [ref=f1e408] [cursor=pointer]:
+            - generic [ref=f1e409]: به زودی
+            - heading "توضیح هوشمند آیه" [level=3] [ref=f1e415]
+            - paragraph [ref=f1e416]: هر آیه ای رو که نفهمیدی بپرس، هوش مصنوعی به زبون خودت و کوتاه برات توضیح میده.
+          - article [ref=f1e421] [cursor=pointer]:
+            - generic [ref=f1e422]: به زودی
+            - heading "مسیر مخصوص تو" [level=3] [ref=f1e428]
+            - paragraph [ref=f1e429]: هوش مصنوعی میفهمه کجای راهی و قدم بعدی رو دقیقا بر اساس سطح تو میچینه.
+          - article [ref=f1e431] [cursor=pointer]:
+            - generic [ref=f1e432]: به زودی
+            - heading "جواب سوال های دینیت" [level=3] [ref=f1e437]
+            - paragraph [ref=f1e438]: سوال شرعی و دینی داری؟ از قرآن، احکام و معارف شیعه جواب دقیق و مطمئن میگیری.
+          - article [ref=f1e440] [cursor=pointer]:
+            - generic [ref=f1e441]: به زودی
+            - heading "پیشنهاد چی بخونم" [level=3] [ref=f1e446]
+            - paragraph [ref=f1e447]: بر اساس چیزی که تا حالا یاد گرفتی، تجربه بعدی رو بهت پیشنهاد میده.
+          - article [ref=f1e449] [cursor=pointer]:
+            - generic [ref=f1e450]: به زودی
+            - heading "کوییز مخصوص تو" [level=3] [ref=f1e455]
+            - paragraph [ref=f1e456]: سوال ها رو بر اساس نقطه ضعف و قوت خودت میسازه تا دقیقا همون چیزی رو تمرین کنی که لازم داری.
+          - article [ref=f1e458] [cursor=pointer]:
+            - generic [ref=f1e459]: به زودی
+            - heading "دستیار معلم ها" [level=3] [ref=f1e466]
+            - paragraph [ref=f1e467]: معلم ها باهاش تجربه و فعالیت جدید میسازن و پیشرفت بچه ها رو بهتر میبینن.
+      - generic [ref=f1e469]:
+        - generic [ref=f1e471]:
+          - generic [ref=f1e472]: تجربه های پیشنهادی
+          - heading "اولین تجربه ات رو انتخاب کن" [level=2] [ref=f1e474]
+          - paragraph [ref=f1e476]: هر تجربه با یه آیه شروع میشه و با یه فعالیت واقعی تموم میشه. ببین کدوم به حال و هوای تو نزدیک تره.
+        - generic [ref=f1e477]:
+          - article [ref=f1e481] [cursor=pointer]:
+            - generic [ref=f1e482]:
+              - img "صفحه های قرآن" [ref=f1e485]
+              - generic [ref=f1e486]: حفظ قرآن
+            - generic [ref=f1e487]:
+              - generic [ref=f1e488]: سوره کوثر
+              - heading "حفظ سوره کوثر" [level=3] [ref=f1e490]
+              - paragraph [ref=f1e491]: کوتاه ترین سوره قرآن رو با تکرار و بازی حفظ میکنی و آخرش بدون نگاه کردن میخونیش.
+              - generic [ref=f1e492]:
+                - generic [ref=f1e493]: حفظ و مرور
+                - generic [ref=f1e494]: 8 دقیقه
+          - article [ref=f1e501] [cursor=pointer]:
+            - generic [ref=f1e502]:
+              - img "قرآن" [ref=f1e505]
+              - generic [ref=f1e506]: احکام
+            - generic [ref=f1e507]:
+              - generic [ref=f1e508]: سوره مائده، آیه 6
+              - heading "وضوی درست قدم به قدم" [level=3] [ref=f1e510]
+              - paragraph [ref=f1e511]: میفهمی وضوی درست چه شکلیه، بعد قدم به قدم تمرین میکنی و اشتباه های رایج رو پیدا میکنی.
+              - generic [ref=f1e512]:
+                - generic [ref=f1e513]: آموزش و تمرین
+                - generic [ref=f1e514]: 10 دقیقه
+          - article [ref=f1e521] [cursor=pointer]:
+            - generic [ref=f1e522]:
+              - img "جلد قرآن" [ref=f1e525]
+              - generic [ref=f1e526]: مفاهیم قرآن
+            - generic [ref=f1e527]:
+              - generic [ref=f1e528]: سوره حمد
+              - heading "معنی سوره حمد" [level=3] [ref=f1e530]
+              - paragraph [ref=f1e531]: سوره ای که هر روز تو نماز میخونی رو کلمه به کلمه میفهمی. از این به بعد نمازت یه طعم دیگه داره.
+              - generic [ref=f1e532]:
+                - generic [ref=f1e533]: ترجمه و سوال کوتاه
+                - generic [ref=f1e534]: 9 دقیقه
+          - article [ref=f1e541] [cursor=pointer]:
+            - generic [ref=f1e542]:
+              - img "مسجد النبی" [ref=f1e545]
+              - generic [ref=f1e546]: اهل بیت
+            - generic [ref=f1e547]:
+              - generic [ref=f1e548]: سوره احزاب، آیه 33
+              - heading "آیه تطهیر و اهل بیت" [level=3] [ref=f1e550]
+              - paragraph [ref=f1e551]: میفهمی آیه تطهیر درباره کیه و چرا مهمه، بعد با یک داستان واقعی از زندگی اهل بیت آشنا میشی.
+              - generic [ref=f1e552]:
+                - generic [ref=f1e553]: داستان و سناریو
+                - generic [ref=f1e554]: 12 دقیقه
+        - link "همین الان پیش ثبت نام کن" [ref=f1e560] [cursor=pointer]:
+          - /url: "#lead"
+      - generic [ref=f1e564]:
+        - generic [ref=f1e566]:
+          - generic [ref=f1e567]: موضوعات منتخب
+          - heading "دوست داری چی یاد بگیری؟" [level=2] [ref=f1e573]
+          - paragraph [ref=f1e575]: از روخونی قرآن تا احکام و تاریخ اسلام. هر موضوع چند تا تجربه کوتاه داره.
+        - generic [ref=f1e576]:
+          - link "روخوانی و تجوید 18 تجربه" [ref=f1e580] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e584]: روخوانی و تجوید
+            - generic [ref=f1e585]: 18 تجربه
+          - link "مفاهیم قرآن 22 تجربه" [ref=f1e589] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e595]: مفاهیم قرآن
+            - generic [ref=f1e596]: 22 تجربه
+          - link "احکام و فقه 15 تجربه" [ref=f1e600] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e606]: احکام و فقه
+            - generic [ref=f1e607]: 15 تجربه
+          - link "اهل بیت 12 تجربه" [ref=f1e611] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e615]: اهل بیت
+            - generic [ref=f1e616]: 12 تجربه
+          - link "تاریخ اسلام 10 تجربه" [ref=f1e620] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e628]: تاریخ اسلام
+            - generic [ref=f1e629]: 10 تجربه
+          - link "نماز و عبادت 11 تجربه" [ref=f1e633] [cursor=pointer]:
+            - /url: "#lead"
+            - generic [ref=f1e637]: نماز و عبادت
+            - generic [ref=f1e638]: 11 تجربه
+      - generic [ref=f1e640]:
+        - generic [ref=f1e642]:
+          - generic [ref=f1e643]: مسیرهای یادگیری
+          - heading "قدم به قدم، تا تهش برو" [level=2] [ref=f1e649]
+          - paragraph [ref=f1e651]: چند تا تجربه پشت سر هم یه مسیر میسازه. آخر هر مسیر یه فعالیت جمع بندی و یه نشان داره.
+        - generic [ref=f1e652]:
+          - article [ref=f1e654] [cursor=pointer]:
+            - paragraph [ref=f1e659]: مقدماتی
+            - heading "روخوانی و تجوید قرآن" [level=3] [ref=f1e660]
+            - paragraph [ref=f1e661]: از الفبا تا خوندن روان قرآن. قدم به قدم با صوت و تمرین کوتاه.
+            - paragraph [ref=f1e662]: 3 قدم
+          - article [ref=f1e667] [cursor=pointer]:
+            - paragraph [ref=f1e673]: متوسط
+            - heading "فهم و مفاهیم قرآن" [level=3] [ref=f1e674]
+            - paragraph [ref=f1e675]: کلمه های پرتکرار و مفهوم آیه ها رو میفهمی و به زندگیت وصل میکنی.
+            - paragraph [ref=f1e676]: 4 قدم
+          - article [ref=f1e681] [cursor=pointer]:
+            - paragraph [ref=f1e688]: همه سطح ها
+            - heading "احکام و معارف شیعه" [level=3] [ref=f1e689]
+            - paragraph [ref=f1e690]: احکام روزمره، اهل بیت و تاریخ اسلام. دینی که باهاش زندگی میکنی.
+            - paragraph [ref=f1e691]: 5 قدم
+        - link "مسیرم رو رایگان شروع کن" [ref=f1e697] [cursor=pointer]:
+          - /url: "#lead"
+      - region "کمپین فعال" [ref=f1e700]:
+        - generic [ref=f1e703]:
+          - img "مسجد در غروب" [ref=f1e706]
+          - generic [ref=f1e707]:
+            - paragraph [ref=f1e708]: کمپین فعال
+            - heading "کمپین شروع یادگیری" [level=2] [ref=f1e710]
+            - paragraph [ref=f1e712]: اولین قدم رو با هم برمیداریم. تو این کمپین چند تجربه منتخب قرآن و احکام رو رایگان انجام میدی، نشان شروع میگیری و وارد مسیر یادگیری میشی.
+            - generic [ref=f1e713]:
+              - generic [ref=f1e714]: 8 تجربه قرآن و احکام
+              - generic [ref=f1e720]: 2 مسیر روخوانی و فهم
+              - generic [ref=f1e726]: نشان شروع کمپین
+              - generic [ref=f1e732]: بدون نیاز به پرداخت
+            - link "من هم هستم" [ref=f1e738] [cursor=pointer]:
+              - /url: "#lead"
+      - region "اپلیکیشن موبایل پلتفرم تدریس اسلامی رستادی" [ref=f1e739]:
+        - generic [ref=f1e740]:
+          - generic [ref=f1e741]:
+            - generic [ref=f1e742]:
+              - generic [ref=f1e743]: اپلیکیشن پلتفرم تدریس اسلامی رستادی
+              - heading "پلتفرم تدریس اسلامی رستادی تو جیبته" [level=2] [ref=f1e749]
+              - paragraph [ref=f1e751]: قرآن و احکام، همیشه همراهت. گوشی رو بردار و روزی 10 دقیقه یاد بگیر.
+            - list [ref=f1e752]:
+              - listitem [ref=f1e754]:
+                - generic [ref=f1e761]:
+                  - generic [ref=f1e762]: یادآوری روزانه
+                  - generic [ref=f1e763]: هر صبح آیه امروز میاد سراغت، با یه پیام کوتاه.
+              - listitem [ref=f1e765]:
+                - generic [ref=f1e769]:
+                  - generic [ref=f1e770]: تجربه های 10 دقیقه ای
+                  - generic [ref=f1e771]: تو مترو، تو صف نونوایی، هر جا وقت اضافه داشتی.
+              - listitem [ref=f1e773]:
+                - generic [ref=f1e781]:
+                  - generic [ref=f1e782]: رشته و نشان
+                  - generic [ref=f1e783]: پیشرفتت ذخیره میشه و نشون هات رو جمع میکنی.
+            - generic [ref=f1e785]:
+              - link "پیش ثبت نام کن" [ref=f1e786] [cursor=pointer]:
+                - /url: "#lead"
+              - generic [ref=f1e787]: بدون نصب، تو مرورگر
+          - generic [ref=f1e791]:
+            - generic [ref=f1e792]: نشان کوثر گرفتی!
+            - generic [ref=f1e793]: آفرین، 6 روز پشت سر هم
+            - generic [ref=f1e802]:
+              - generic [ref=f1e803]: 9:41
+              - generic [ref=f1e821]:
+                - generic [ref=f1e822]:
+                  - paragraph [ref=f1e823]: سلام سارا!
+                  - paragraph [ref=f1e824]: بریم تجربه امروز؟
+                - generic [ref=f1e825]: س
+              - paragraph [ref=f1e831]: "رشته تو: 6 روز"
+              - generic [ref=f1e840]:
+                - paragraph [ref=f1e841]: آیه امروز
+                - paragraph [ref=f1e842]: فَاذْکُرُونِی أَذْکُرْکُمْ
+                - paragraph [ref=f1e843]: من رو یاد کنید تا شما رو یاد کنم.
+              - generic [ref=f1e845]:
+                - paragraph [ref=f1e846]: حفظ سوره کوثر
+                - generic [ref=f1e847]: ادامه بده
+      - generic [ref=f1e867]:
+        - region "Notifications Alt+T"
+        - generic [ref=f1e869]:
+          - generic [ref=f1e871]:
+            - img "صفحه های قرآن" [ref=f1e874]
+            - generic [ref=f1e875]:
+              - paragraph [ref=f1e876]: بزن بریم
+              - heading "اولین تجربه ات رو پیش ثبت نام کن" [level=2] [ref=f1e877]: اولین تجربه ات روپیش ثبت نام کن
+              - paragraph [ref=f1e880]: فرم رو پر کن تا جزو اولین نفرهایی باشی که پتار رو تجربه میکنن. کمتر از دو دقیقه طول میکشه.
+            - list [ref=f1e881]:
+              - listitem [ref=f1e882]:
+                - generic [ref=f1e889]:
+                  - generic [ref=f1e890]: شروع رایگان
+                  - generic [ref=f1e891]: چند تجربه اول کاملا رایگانه. بدون پرداخت و بدون تعهد.
+              - listitem [ref=f1e892]:
+                - generic [ref=f1e898]:
+                  - generic [ref=f1e899]: قدم به قدم
+                  - generic [ref=f1e900]: از آیه شروع میکنی و قدم به قدم به زندگی خودت میرسی.
+              - listitem [ref=f1e901]:
+                - generic [ref=f1e906]:
+                  - generic [ref=f1e907]: محتوای بررسی شده
+                  - generic [ref=f1e908]: همه تجربه ها رو تیم پلتفرم تدریس اسلامی رستادی طراحی و تایید کرده. خیالت راحت.
+          - form "فرم پیش ثبت نام" [ref=f1e911]:
+            - heading "فرم پیش ثبت نام" [level=3] [ref=f1e912]
+            - paragraph [ref=f1e913]: چند تا سوال کوتاه. کمتر از دو دقیقه طول میکشه.
+            - generic [ref=f1e914]:
+              - generic [ref=f1e915]:
+                - generic [ref=f1e916]:
+                  - text: نام و نام خانوادگی
+                  - generic [aria-hidden] [ref=f1e917]: "*"
+                - textbox "نام و نام خانوادگی" [ref=f1e918]:
+                  - /placeholder: مثلا سارا محمدی
+              - generic [ref=f1e919]:
+                - generic [ref=f1e920]:
+                  - generic [ref=f1e921]:
+                    - text: نقش تو
+                    - generic [aria-hidden] [ref=f1e922]: "*"
+                  - combobox "نقش تو" [ref=f1e923] [cursor=pointer]:
+                    - option "انتخاب کن..." [selected]
+                    - option "دانش آموز"
+                    - option "معلم"
+                    - option "مدیر مدرسه"
+                    - option "والد"
+                    - option "سایر"
+                - generic [ref=f1e924]:
+                  - generic [ref=f1e925]: پایه تحصیلی
+                  - combobox "پایه تحصیلی" [ref=f1e926] [cursor=pointer]:
+                    - option "هیچکدام" [selected]
+                    - option "پایه هفتم"
+                    - option "پایه هشتم"
+                    - option "پایه نهم"
+                    - option "پایه دهم"
+                    - option "پایه یازدهم"
+                    - option "پایه دوازدهم"
+                  - paragraph [ref=f1e927]: اختیاریه. اگه دانش آموز نیستی همون هیچکدام بمونه.
+              - generic [ref=f1e928]:
+                - generic [ref=f1e929]:
+                  - text: نام مدرسه
+                  - generic [aria-hidden] [ref=f1e930]: "*"
+                - textbox "نام مدرسه" [ref=f1e931]:
+                  - /placeholder: مثلا دبیرستان فرزانگان
+              - generic [ref=f1e932]:
+                - generic [ref=f1e933]:
+                  - text: شماره موبایل
+                  - generic [aria-hidden] [ref=f1e934]: "*"
+                  - generic [ref=f1e935]: از شماره موبایل شما برای اطلاع رسانی پتار و مسابقات استفاده میکنیم
+                - textbox "شماره موبایل از شماره موبایل شما برای اطلاع رسانی پتار و مسابقات استفاده میکنیم" [ref=f1e936]:
+                  - /placeholder: "09123456789"
+                - paragraph [ref=f1e937]: از شماره موبایل شما برای اطلاع رسانی پتار و مسابقات استفاده میکنیم
+              - generic [ref=f1e938]:
+                - generic [ref=f1e939]:
+                  - text: پیام یا درخواست
+                  - generic [ref=f1e940]: اختیاری
+                - textbox "پیام یا درخواست اختیاری" [ref=f1e941]:
+                  - /placeholder: هر حرف یا پیشنهادی برای پتار داری اینجا بنویس...
+                - paragraph [ref=f1e942]: 0/1000
+              - button "اگر میخوای درباره خودت بیشتر بهمون بگی" [ref=f1e944] [cursor=pointer]
+              - button "پیش ثبت نام رو ثبت کن" [ref=f1e949] [cursor=pointer]
+              - paragraph [ref=f1e950]: پیش ثبت نام رایگانه و هیچ تعهدی نداره.
+      - generic [ref=f1e952]:
+        - generic [ref=f1e954]:
+          - generic [ref=f1e955]: سوالات پرتکرار
+          - heading "بپرس، جوابش اینجاست" [level=2] [ref=f1e957]
+          - paragraph [ref=f1e959]: اگه جوابت رو پیدا نکردی، تو فرم شروع بنویس تا خبرت کنیم.
+        - generic [ref=f1e960]:
+          - generic [ref=f1e962]:
+            - button "پلتفرم تدریس اسلامی رستادی دقیقا چیه؟" [expanded] [ref=f1e963] [cursor=pointer]
+            - region [ref=f1e968]:
+              - paragraph [ref=f1e969]: "پلتفرم تدریس اسلامی رستادی (پتار) یک پلتفرم یادگیری قرآن و معارف شیعه اس. به جای درس خشک، تجربه تعاملی میسازی: آیه رو میخونی، مفهومش رو میفهمی، تو یک سناریو واقعی انتخاب میکنی و آخرش به زندگی خودت وصلش میکنی."
+          - button "محتواها معتبرن؟" [ref=f1e972] [cursor=pointer]
+          - button "روزی چقدر وقت لازمه؟" [ref=f1e979] [cursor=pointer]
+          - button "شروع کردن هزینه داره؟" [ref=f1e986] [cursor=pointer]
+    - contentinfo [ref=f1e991]:
+      - generic [ref=f1e992]:
+        - generic [ref=f1e993]:
+          - generic [ref=f1e994]:
+            - link "پتار" [ref=f1e995] [cursor=pointer]:
+              - /url: "#top"
+              - img "فناوری های آموزشی رستادی" [ref=f1e996]
+              - generic [ref=f1e997]:
+                - generic [ref=f1e998]: پلتفرم تدریس اسلامی رستادی
+                - generic [ref=f1e999]: از آیه تا زندگی
+            - paragraph [ref=f1e1000]: پلتفرم تدریس اسلامی رستادی قرآن، احکام و معارف شیعه رو به تجربه یادگیری تعاملی تبدیل میکنه.
+          - navigation "یادگیری" [ref=f1e1001]:
+            - heading "یادگیری" [level=2] [ref=f1e1002]
+            - list [ref=f1e1003]:
+              - listitem [ref=f1e1004]:
+                - link "از آیه تا زندگی" [ref=f1e1005] [cursor=pointer]:
+                  - /url: "#concept"
+              - listitem [ref=f1e1010]:
+                - link "تجربه ها" [ref=f1e1011] [cursor=pointer]:
+                  - /url: "#experiences"
+              - listitem [ref=f1e1014]:
+                - link "موضوعات" [ref=f1e1015] [cursor=pointer]:
+                  - /url: "#topics"
+              - listitem [ref=f1e1021]:
+                - link "مسیرها" [ref=f1e1022] [cursor=pointer]:
+                  - /url: "#paths"
+          - navigation "پتار" [ref=f1e1025]:
+            - heading "پتار" [level=2] [ref=f1e1026]
+            - list [ref=f1e1027]:
+              - listitem [ref=f1e1028]:
+                - link "چرا پلتفرم تدریس اسلامی رستادی" [ref=f1e1029] [cursor=pointer]:
+                  - /url: "#features"
+              - listitem [ref=f1e1033]:
+                - link "هوش مصنوعی" [ref=f1e1034] [cursor=pointer]:
+                  - /url: "#ai"
+              - listitem [ref=f1e1038]:
+                - link "سوالات پرتکرار" [ref=f1e1039] [cursor=pointer]:
+                  - /url: "#faq"
+              - listitem [ref=f1e1043]:
+                - link "شروع رایگان" [ref=f1e1044] [cursor=pointer]:
+                  - /url: "#lead"
+              - listitem [ref=f1e1047]:
+                - link "برگشت به بالا" [ref=f1e1048] [cursor=pointer]:
+                  - /url: "#top"
+        - generic [ref=f1e1051]:
+          - paragraph [ref=f1e1052]: تمامی حقوق برای فناوری های آموزشی رستادی محفوظ است
+          - paragraph [ref=f1e1053]: Restudy Religions Program
+  - button "Open Next.js Dev Tools" [ref=f1e1059] [cursor=pointer]
