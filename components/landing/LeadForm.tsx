@@ -170,8 +170,7 @@ export default function LeadForm() {
     }
     const normalizedName = normalizeText(values.fullName);
     const normalizedSchool = normalizeText(values.schoolName);
-    const normalizedPhone =
-      values.phone.trim() === "" ? "" : normalizePhone(values.phone);
+    const normalizedPhone = normalizePhone(values.phone);
     const roleLabel =
       roleOptions.find((o) => o.value === values.role)?.label ?? values.role;
     const gradeLabel = gradePayloadLabels[values.grade] ?? values.grade;
@@ -267,7 +266,7 @@ export default function LeadForm() {
                 <h2 className="mt-4 text-3xl font-semibold leading-snug">
                   <HeadlineEmoji name="student" /> اولین تجربه ات رو
                   <br />
-                  رایگان شروع کن
+                  پیش ثبت نام کن
                 </h2>
                 <p className="mt-3 leading-8 text-black/60">
                   فرم رو پر کن تا جزو اولین نفرهایی باشی که پتار رو تجربه
@@ -305,12 +304,9 @@ export default function LeadForm() {
                       <PartyPopper className="size-7 text-green-600" strokeWidth={1.8} />
                     </span>
                     <h3 className="text-2xl font-semibold"><HeadlineEmoji name="party-popper" /> تمومه، تو تو لیستی</h3>
-                    <p className="max-w-sm leading-8 text-black/60">
-                      {values.fullName} عزیز، پیش ثبت نامت ثبت شد.
-                      {values.phone !== ""
-                        ? ` به شماره ${values.phone} خبرت میکنیم.`
-                        : " به زودی خبرت میکنیم."}
-                    </p>
+                      <p className="max-w-sm leading-8 text-black/60">
+                        {values.fullName} عزیز، پیش ثبت نامت ثبت شد. به شماره {values.phone} خبرت میکنیم.
+                      </p>
                     {selectedRoleLabel !== "" ? (
                       <p className="rounded-[10px] border border-gray-200 bg-white px-4 py-3 text-sm leading-7 text-black/60">
                         نقش: {selectedRoleLabel}
@@ -339,8 +335,9 @@ export default function LeadForm() {
                     </p>
                     <div className="mt-6 flex flex-col gap-5">
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="lead-name" className="font-medium">
+                        <label htmlFor="lead-name" className="flex flex-wrap items-center gap-1 font-medium">
                           نام و نام خانوادگی
+                          <span aria-hidden="true" className="text-red-500">*</span>
                         </label>
                         <input
                           id="lead-name"
@@ -352,6 +349,8 @@ export default function LeadForm() {
                           value={values.fullName}
                           onChange={(e) => update("fullName", e.target.value)}
                           onBlur={() => blurField("fullName")}
+                          required
+                          aria-required="true"
                           aria-invalid={errors.fullName !== undefined}
                           aria-describedby={errors.fullName !== undefined ? "lead-name-error" : undefined}
                           className={`${inputClassName} ${errors.fullName !== undefined ? errorInputClassName : ""}`}
@@ -364,8 +363,9 @@ export default function LeadForm() {
                       </div>
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div className="flex flex-col gap-2">
-                          <label htmlFor="lead-role" className="font-medium">
+                          <label htmlFor="lead-role" className="flex flex-wrap items-center gap-1 font-medium">
                             نقش تو
+                            <span aria-hidden="true" className="text-red-500">*</span>
                           </label>
                           <select
                             id="lead-role"
@@ -373,6 +373,8 @@ export default function LeadForm() {
                             value={values.role}
                             onChange={(e) => update("role", e.target.value)}
                             onBlur={() => blurField("role")}
+                            required
+                            aria-required="true"
                             aria-invalid={errors.role !== undefined}
                             aria-describedby={errors.role !== undefined ? "lead-role-error" : undefined}
                             className={`${inputClassName} cursor-pointer ${values.role === "" ? "text-black/35" : ""} ${errors.role !== undefined ? errorInputClassName : ""}`}
@@ -422,8 +424,9 @@ export default function LeadForm() {
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="lead-school" className="font-medium">
+                        <label htmlFor="lead-school" className="flex flex-wrap items-center gap-1 font-medium">
                           نام مدرسه
+                          <span aria-hidden="true" className="text-red-500">*</span>
                         </label>
                         <input
                           id="lead-school"
@@ -435,6 +438,8 @@ export default function LeadForm() {
                           value={values.schoolName}
                           onChange={(e) => update("schoolName", e.target.value)}
                           onBlur={() => blurField("schoolName")}
+                          required
+                          aria-required="true"
                           aria-invalid={errors.schoolName !== undefined}
                           aria-describedby={errors.schoolName !== undefined ? "lead-school-error" : undefined}
                           className={`${inputClassName} ${errors.schoolName !== undefined ? errorInputClassName : ""}`}
@@ -448,8 +453,9 @@ export default function LeadForm() {
                       <div className="flex flex-col gap-2">
                         <label htmlFor="lead-phone" className="flex flex-wrap items-center gap-2 font-medium">
                           شماره موبایل
+                          <span aria-hidden="true" className="text-red-500">*</span>
                           <span className="text-xs font-normal text-black/60">
-                            اختیاری ولی پیشنهاد میشه
+                            از شماره موبایل شما برای اطلاع رسانی پتار و مسابقات استفاده میکنیم
                           </span>
                         </label>
                         <input
@@ -464,6 +470,8 @@ export default function LeadForm() {
                           value={values.phone}
                           onChange={(e) => update("phone", e.target.value)}
                           onBlur={() => blurField("phone")}
+                          required
+                          aria-required="true"
                           aria-invalid={errors.phone !== undefined}
                           aria-describedby={errors.phone !== undefined ? "lead-phone-error" : "lead-phone-hint"}
                           className={`${inputClassName} text-left ${errors.phone !== undefined ? errorInputClassName : ""}`}
@@ -474,7 +482,7 @@ export default function LeadForm() {
                           </p>
                         ) : (
                           <p id="lead-phone-hint" className="text-xs leading-6 text-black/60">
-                            اگه بنویسی خبرهای پتار زودتر بهت میرسه.
+                            از شماره موبایل شما برای اطلاع رسانی پتار و مسابقات استفاده میکنیم
                           </p>
                         )}
                       </div>
