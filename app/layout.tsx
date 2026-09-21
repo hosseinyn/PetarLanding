@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import ClarityProvider from "@/components/analytics/ClarityProvider";
 import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       >
         <SmoothScroll>{children}</SmoothScroll>
 
+        <ClarityProvider />
         <Analytics />
       </body>
     </html>
