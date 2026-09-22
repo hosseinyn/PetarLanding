@@ -599,7 +599,12 @@ export default function LeadForm() {
                           aria-controls="lead-more"
                           className="inline-flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-[10px] border border-gray-200 bg-sky-50 px-4 py-3 text-sm font-medium transition duration-700 hover:border-sky-400 hover:text-sky-700 focus:outline-none"
                         >
-                          <span>اگر میخوای درباره خودت بیشتر بهمون بگی</span>
+                          <span className="flex flex-col items-start gap-1 text-right">
+                            <span>اگر میخوای درباره خودت بیشتر بهمون بگی</span>
+                            <span className="text-xs font-normal text-black/60">
+                              اگر اینارو پر کنی، در آینده پتار امتیاز ویژه داری
+                            </span>
+                          </span>
                           <motion.span
                             aria-hidden="true"
                             animate={{ rotate: showMore ? 180 : 0 }}
