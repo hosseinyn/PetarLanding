@@ -1,4 +1,5 @@
-import { MotionProvider } from "@/components/ui/motion";
+import dynamic from "next/dynamic";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import EmojiProvider from "@/components/ui/EmojiProvider";
 import ScrollProgress from "@/components/landing/ScrollProgress";
 import Header from "@/components/landing/Header";
@@ -10,10 +11,11 @@ import Experiences from "@/components/landing/Experiences";
 import Topics from "@/components/landing/Topics";
 import Paths from "@/components/landing/Paths";
 import CampaignBanner from "@/components/landing/CampaignBanner";
-import PhoneMockup from "@/components/landing/PhoneMockup";
-import FAQ from "@/components/landing/FAQ";
-import LeadForm from "@/components/landing/LeadForm";
 import Footer from "@/components/landing/Footer";
+
+const PhoneMockup = dynamic(() => import("@/components/landing/PhoneMockup"));
+const LeadForm = dynamic(() => import("@/components/landing/LeadForm"));
+const FAQ = dynamic(() => import("@/components/landing/FAQ"));
 
 export default function Home() {
   return (

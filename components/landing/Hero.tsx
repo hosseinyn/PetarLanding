@@ -2,15 +2,18 @@
 
 import { useRef, type CSSProperties } from "react";
 import dynamic from "next/dynamic";
+import { HeroFallback } from "@/components/3d/Fallbacks";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Flame, Gamepad2, Medal, Sparkles } from "lucide-react";
 import Button from "@/components/ui/Button";
 import HeroHeadline from "@/components/landing/HeroHeadline";
-import { EASE } from "@/components/ui/motion";
+import { PauseOffscreen } from "@/components/ui/PauseOffscreen";
+import { EASE } from "@/lib/motion";
 import { LEAD_FORM_HREF } from "@/lib/site";
 
 const Hero3D = dynamic(() => import("@/components/3d/Hero3D"), {
   ssr: false,
+  loading: () => <HeroFallback />,
 });
 
 const entrance = {
@@ -95,7 +98,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
           style={reduce === true ? undefined : { y: floatY }}
         >
-          <div className="grid grid-cols-2 gap-4" aria-label="پیش نمایش تجربه یادگیری در پلتفرم تدریس اسلامی رستادی">
+          <PauseOffscreen className="grid grid-cols-2 gap-4" ariaLabel="پیش نمایش تجربه یادگیری در پلتفرم تدریس اسلامی رستادی">
             <motion.div whileHover={reduce === true ? undefined : { y: -4 }} transition={{ duration: 0.3 }} className="col-span-2 border border-sky-200 bg-sky-50 p-5 card-r-lg">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -159,7 +162,7 @@ export default function Hero() {
                 پس من رو یاد کنید تا شما رو یاد کنم. (بقره، 152)
               </p>
             </motion.div>
-          </div>
+          </PauseOffscreen>
         </motion.div>
       </div>
     </section>

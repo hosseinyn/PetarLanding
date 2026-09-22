@@ -3,6 +3,9 @@
 @font-face {
   font-family: 'Estedad';
   src: url('/fonts/Estedad.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
@@ -215,15 +218,39 @@ body {
   animation: travel-down 6s ease-in-out infinite alternate;
 }
 
+.pause-offscreen .anim-float,
+.pause-offscreen .anim-pop,
 .pause-offscreen .anim-travel,
 .pause-offscreen .anim-travel-down,
+.pause-offscreen .anim-node,
+.pause-offscreen .anim-draw,
+.pause-offscreen .anim-dot,
+.pause-offscreen .anim-bubble,
+.pause-offscreen .anim-swap-a,
+.pause-offscreen .anim-swap-b,
+.pause-offscreen .anim-twinkle,
+.pause-offscreen .anim-blink,
+.pause-offscreen .anim-wave,
+.pause-offscreen .anim-caret,
 .pause-offscreen .anim-loop,
 .pause-offscreen .anim-loop-dot {
   animation-play-state: paused;
 }
 
+.pause-offscreen.is-live .anim-float,
+.pause-offscreen.is-live .anim-pop,
 .pause-offscreen.is-live .anim-travel,
 .pause-offscreen.is-live .anim-travel-down,
+.pause-offscreen.is-live .anim-node,
+.pause-offscreen.is-live .anim-draw,
+.pause-offscreen.is-live .anim-dot,
+.pause-offscreen.is-live .anim-bubble,
+.pause-offscreen.is-live .anim-swap-a,
+.pause-offscreen.is-live .anim-swap-b,
+.pause-offscreen.is-live .anim-twinkle,
+.pause-offscreen.is-live .anim-blink,
+.pause-offscreen.is-live .anim-wave,
+.pause-offscreen.is-live .anim-caret,
 .pause-offscreen.is-live .anim-loop,
 .pause-offscreen.is-live .anim-loop-dot {
   animation-play-state: running;

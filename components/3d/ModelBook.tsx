@@ -43,5 +43,24 @@ export default function ModelBook() {
     return clone;
   }, [scene]);
 
+  useEffect(() => {
+    return () => {
+      model.traverse((o: Object3D) => {
+        const mesh = o as Mesh;
+        if (mesh.isMesh !== true) {
+          return;
+        }
+        const mat = mesh.material as MeshStandardMaterial | MeshStandardMaterial[];
+        if (Array.isArray(mat)) {
+          for (const m of mat) {
+            m.dispose();
+          }
+        } else if (mat !== undefined && mat !== null) {
+          mat.dispose();
+        }
+      });
+    };
+  }, [model]);
+
   return <primitive object={model} />;
 }

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { EASE } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
 
 interface RevealProps {
   children: ReactNode;

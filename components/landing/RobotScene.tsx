@@ -1,10 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Bot, Sparkles, Star } from "lucide-react";
-import { EASE } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
+import { preloadRobot } from "@/lib/3d-models";
 import { RobotFallback } from "@/components/3d/Fallbacks";
 
 const Robot3D = dynamic(() => import("@/components/3d/Robot3D"), {
@@ -32,9 +33,34 @@ const bubbles = [
 
 export default function RobotScene() {
   const reduce = useReducedMotion();
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = rootRef.current;
+    if (node === null) {
+      return;
+    }
+    if (typeof IntersectionObserver === "undefined") {
+      node.classList.add("is-live");
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.target.classList.toggle("is-live", entry.isIntersecting);
+          if (entry.isIntersecting) {
+            preloadRobot();
+          }
+        }
+      },
+      { rootMargin: "240px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="overflow-hidden rounded-[14px] border border-purple-200 bg-purple-50">
+    <div ref={rootRef} className="pause-offscreen overflow-hidden rounded-[14px] border border-purple-200 bg-purple-50">
       <div className="grid items-center gap-6 p-6 sm:p-8 lg:grid-cols-[auto_1fr]">
         <div className="relative mx-auto w-fit">
           <p className="mx-auto mb-2 flex w-fit items-center gap-1.5 rounded-full bg-purple-600 px-3 py-1 text-xs font-medium text-white">

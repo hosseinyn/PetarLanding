@@ -18,6 +18,7 @@ interface TiltCardProps {
 export function TiltCard({ children, className = "", max = 8 }: TiltCardProps) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const rawX = useMotionValue(0.5);
   const rawY = useMotionValue(0.5);
   const rotateX = useSpring(useTransform(rawY, [0, 1], [max, -max]), {
@@ -29,13 +30,27 @@ export function TiltCard({ children, className = "", max = 8 }: TiltCardProps) {
     damping: 20,
   });
 
-  const pointTo = (clientX: number, clientY: number) => {
+  const cacheRect = () => {
     if (ref.current === null) {
       return;
     }
-    const rect = ref.current.getBoundingClientRect();
+    rectRef.current = ref.current.getBoundingClientRect();
+  };
+
+  const pointTo = (clientX: number, clientY: number) => {
+    const rect = rectRef.current ?? ref.current?.getBoundingClientRect() ?? null;
+    if (rect === null) {
+      return;
+    }
     rawX.set(Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)));
     rawY.set(Math.max(0, Math.min(1, (clientY - rect.top) / rect.height)));
+  };
+
+  const onEnter = () => {
+    if (reduce === true) {
+      return;
+    }
+    cacheRect();
   };
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -49,6 +64,9 @@ export function TiltCard({ children, className = "", max = 8 }: TiltCardProps) {
     if (reduce === true) {
       return;
     }
+    if (rectRef.current === null) {
+      cacheRect();
+    }
     const touch = e.touches[0];
     if (touch === undefined) {
       return;
@@ -57,6 +75,7 @@ export function TiltCard({ children, className = "", max = 8 }: TiltCardProps) {
   };
 
   const onLeave = () => {
+    rectRef.current = null;
     rawX.set(0.5);
     rawY.set(0.5);
   };
@@ -69,6 +88,7 @@ export function TiltCard({ children, className = "", max = 8 }: TiltCardProps) {
     <div className={className} style={{ perspective: 900 }}>
       <motion.div
         ref={ref}
+        onMouseEnter={onEnter}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         onTouchStart={onTouch}

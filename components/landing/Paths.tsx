@@ -3,7 +3,7 @@ import { paths } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
-import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/Stagger";
 import { getIcon } from "@/lib/icons";
 import { accentHoverBorder, accentText, accentTint } from "@/lib/accent";
 import { LEAD_FORM_HREF } from "@/lib/site";

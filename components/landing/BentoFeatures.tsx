@@ -4,7 +4,8 @@ import { bentoFeatures, type BentoFeature } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 import Reveal from "@/components/ui/Reveal";
-import { Stagger, StaggerItem, PauseOffscreen } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/Stagger";
+import { PauseOffscreen } from "@/components/ui/PauseOffscreen";
 import { getIcon } from "@/lib/icons";
 import {
   accentHoverBorder,

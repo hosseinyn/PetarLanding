@@ -5,9 +5,11 @@ import { useEffect, useRef, type ReactNode } from "react";
 export function PauseOffscreen({
   children,
   className = "",
+  ariaLabel,
 }: {
   children: ReactNode;
   className?: string;
+  ariaLabel?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,7 +35,7 @@ export function PauseOffscreen({
   }, []);
 
   return (
-    <div ref={ref} className={`pause-offscreen ${className}`.trim()}>
+    <div ref={ref} className={`pause-offscreen ${className}`.trim()} aria-label={ariaLabel}>
       {children}
     </div>
   );

@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 import { aiFeatures, aiNote } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/Stagger";
 import RobotScene from "@/components/landing/RobotScene";
 import AiLoopCard from "@/components/landing/AiLoopCard";
 import { getIcon } from "@/lib/icons";

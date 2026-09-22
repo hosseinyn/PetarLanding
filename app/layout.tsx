@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import ClarityProvider from "@/components/analytics/ClarityProvider";
 import type { Viewport } from 'next';
@@ -30,6 +29,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/Estedad.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`min-h-screen flex flex-col bg-white text-black antialiased`}
       >

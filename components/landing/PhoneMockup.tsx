@@ -18,7 +18,9 @@ import {
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { EASE, TiltCard } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
+import { TiltCard } from "@/components/ui/TiltCard";
+import { PauseOffscreen } from "@/components/ui/PauseOffscreen";
 import { LEAD_FORM_HREF } from "@/lib/site";
 
 const bullets = [
@@ -162,6 +164,7 @@ export default function PhoneMockup() {
           aria-hidden="true"
         >
         <motion.div style={reduce === true ? undefined : { y: drift }}>
+          <PauseOffscreen>
           <span className="anim-float absolute -right-6 top-16 z-10 hidden rounded-[10px] border border-gray-200 bg-white px-3 py-2 text-xs font-medium sm:block">
             نشان کوثر گرفتی!
           </span>
@@ -179,6 +182,7 @@ export default function PhoneMockup() {
               </div>
             </div>
           </TiltCard>
+          </PauseOffscreen>
         </motion.div>
         </motion.div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Float, ContactShadows, Sparkles } from "@react-three/drei";
 import { CanvasTexture } from "three";
@@ -8,6 +8,7 @@ import type { Group, PointLight, Sprite } from "three";
 import SafeCanvas from "@/components/3d/SafeCanvas";
 import { HeroFallback } from "@/components/3d/Fallbacks";
 import { COLORS } from "@/lib/3d-config";
+import { preloadModels } from "@/lib/3d-models";
 import ModelQuran from "@/components/3d/ModelQuran";
 import ModelLantern from "@/components/3d/ModelLantern";
 
@@ -105,6 +106,11 @@ function LanternGlow({ x, y }: { x: number; y: number }) {
     }
     return new CanvasTexture(canvas);
   }, []);
+  useEffect(() => {
+    return () => {
+      texture.dispose();
+    };
+  }, [texture]);
   useFrame((state) => {
     if (ref.current === null) {
       return;
@@ -167,6 +173,27 @@ function HeroScene() {
 }
 
 export default function Hero3D() {
+  useEffect(() => {
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let id = 0;
+    let idle = false;
+    if (typeof w.requestIdleCallback === "function") {
+      idle = true;
+      id = w.requestIdleCallback(preloadModels);
+    } else {
+      id = window.setTimeout(preloadModels, 1500);
+    }
+    return () => {
+      if (idle && typeof w.cancelIdleCallback === "function") {
+        w.cancelIdleCallback(id);
+      } else if (!idle) {
+        window.clearTimeout(id);
+      }
+    };
+  }, []);
   return (
     <SafeCanvas
       className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"

@@ -2,12 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import {
+  Gamepad2,
+  LayoutGrid,
+  Map,
+  Menu,
+  MessageCircleQuestion,
+  Route,
+  Sparkles,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { navLinks } from "@/lib/landing-data";
 import Button from "@/components/ui/Button";
-import { EASE } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
 import { LEAD_FORM_HREF } from "@/lib/site";
-import { getIcon } from "@/lib/icons";
+
+const navIcons: Record<string, LucideIcon> = {
+  route: Route,
+  quiz: Gamepad2,
+  grid: LayoutGrid,
+  map: Map,
+  sparkles: Sparkles,
+  help: MessageCircleQuestion,
+};
 
 import Image from "next/image";
 
@@ -48,7 +66,7 @@ export default function Header() {
         <div className="flex h-16 w-full items-center justify-between gap-3 px-3 sm:px-4">
           <a href="#top" className="flex items-center gap-2.5" aria-label="پلتفرم تدریس اسلامی رستادی، بازگشت به بالای صفحه">
 
-            <Image src="/images/logo.webp" width={32} height={32} alt="فناوری های آموزشی رستادی" title="فناوری های آموزشی رستادی" />
+            <Image src="/images/logo.webp" width={32} height={32} alt="فناوری های آموزشی رستادی" title="فناوری های آموزشی رستادی" priority loading="eager" fetchPriority="high" />
 
             <span className="hidden flex-col leading-none min-[400px]:flex">
               <span className="text-lg font-semibold">پلتفرم تدریس اسلامی رستادی</span>
@@ -57,7 +75,7 @@ export default function Header() {
           </a>
           <nav aria-label="ناوبری اصلی" className="hidden items-center gap-0.5 lg:flex">
             {navLinks.map((link) => {
-              const Icon = getIcon(link.icon);
+              const Icon = navIcons[link.icon] ?? Sparkles;
               const isActive = active === link.href;
               return (
                 <a
@@ -104,7 +122,7 @@ export default function Header() {
           >
             <ul className="flex flex-col">
               {navLinks.map((link) => {
-                const Icon = getIcon(link.icon);
+                const Icon = navIcons[link.icon] ?? Sparkles;
                 return (
                   <li key={link.href}>
                     <a

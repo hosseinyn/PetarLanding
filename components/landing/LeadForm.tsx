@@ -1,15 +1,23 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BadgeCheck, ChevronDown, PartyPopper, Rocket, Sparkles, Star } from "lucide-react";
-import Confetti from "react-confetti";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { leadImage } from "@/lib/landing-data";
 import Reveal from "@/components/ui/Reveal";
 import Pill from "@/components/ui/Pill";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
-import { EASE, ParallaxPhoto } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
+import { ParallaxPhoto } from "@/components/ui/ParallaxPhoto";
+
+const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
+const ToastContainer = dynamic(
+  () => import("react-toastify").then((m) => m.ToastContainer),
+  { ssr: false }
+);
 
 const benefits = [
   {

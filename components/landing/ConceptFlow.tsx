@@ -3,7 +3,9 @@ import { conceptSteps, type ConceptStep } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Section from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
-import { Stagger, StaggerItem, TiltCard, PauseOffscreen } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/Stagger";
+import { TiltCard } from "@/components/ui/TiltCard";
+import { PauseOffscreen } from "@/components/ui/PauseOffscreen";
 import { getIcon } from "@/lib/icons";
 import type { Accent } from "@/types/accent";
 import {

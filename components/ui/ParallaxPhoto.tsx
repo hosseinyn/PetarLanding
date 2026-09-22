@@ -10,9 +10,10 @@ interface ParallaxPhotoProps {
   sizes: string;
   className?: string;
   frameClassName?: string;
+  priority?: boolean;
 }
 
-export function ParallaxPhoto({ src, alt, sizes, className = "", frameClassName = "" }: ParallaxPhotoProps) {
+export function ParallaxPhoto({ src, alt, sizes, className = "", frameClassName = "", priority = false }: ParallaxPhotoProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -26,7 +27,7 @@ export function ParallaxPhoto({ src, alt, sizes, className = "", frameClassName 
   return (
     <div ref={ref} className={`overflow-hidden ${frameClassName}`.trim()}>
       <motion.div style={{ y }} className="relative -top-[10%] h-[120%] w-full">
-        <Image src={src} alt={alt} fill sizes={sizes} className={`object-cover ${className}`.trim()} />
+        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`object-cover ${className}`.trim()} />
       </motion.div>
     </div>
   );

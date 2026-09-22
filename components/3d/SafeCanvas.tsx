@@ -60,18 +60,27 @@ export default function SafeCanvas({
     if (el === null || typeof IntersectionObserver === "undefined") {
       return;
     }
+    let timer: number | undefined;
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry === undefined) {
           return;
         }
-        setVisible(entry.isIntersecting);
+        window.clearTimeout(timer);
+        if (entry.isIntersecting) {
+          setVisible(true);
+        } else {
+          timer = window.setTimeout(() => setVisible(false), 200);
+        }
       },
       { rootMargin: "160px" }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      window.clearTimeout(timer);
+      io.disconnect();
+    };
   }, []);
 
   const ready = mounted && visible && supported && !reduced;

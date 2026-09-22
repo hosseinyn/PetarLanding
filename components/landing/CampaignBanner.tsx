@@ -5,7 +5,8 @@ import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 import Button from "@/components/ui/Button";
 import Pill from "@/components/ui/Pill";
 import { LEAD_FORM_HREF } from "@/lib/site";
-import { ParallaxPhoto, Stagger, StaggerItem } from "@/components/ui/motion";
+import { ParallaxPhoto } from "@/components/ui/ParallaxPhoto";
+import { Stagger, StaggerItem } from "@/components/ui/Stagger";
 
 export default function CampaignBanner() {
   return (

@@ -7,7 +7,7 @@ import { faqs } from "@/lib/landing-data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Section from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
-import { EASE } from "@/components/ui/motion";
+import { EASE } from "@/lib/motion";
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
