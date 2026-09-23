@@ -1,3 +1,13 @@
+export interface Friend {
+  fullName: string;
+  schoolName: string;
+}
+
+export interface FriendErrors {
+  fullName?: string;
+  schoolName?: string;
+}
+
 export interface LeadFormValues {
   fullName: string;
   role: string;
@@ -9,6 +19,7 @@ export interface LeadFormValues {
   competitionRating: number | "";
   freeTimeActivities: string[];
   aboutYourself: string;
+  friends: Friend[];
 }
 
 export interface LeadFormErrors {
@@ -22,4 +33,6 @@ export interface LeadFormErrors {
   competitionRating?: string;
   freeTimeActivities?: string;
   aboutYourself?: string;
+  friends?: string;
+  friendItems?: FriendErrors[];
 }

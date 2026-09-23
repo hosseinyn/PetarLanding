@@ -1,4 +1,4 @@
-import type { LeadFormErrors, LeadFormValues } from "@/types/lead";
+import type { Friend, FriendErrors, LeadFormErrors, LeadFormValues } from "@/types/lead";
 
 export const FULL_NAME_MIN_LENGTH = 3;
 export const FULL_NAME_MAX_LENGTH = 80;
@@ -72,6 +72,20 @@ export const freeTimeActivityOptions = [
 
 export const COMPETITION_MIN_RATING = 1;
 export const COMPETITION_MAX_RATING = 4;
+
+export const MAX_FRIENDS = 14;
+export const FRIENDS_MAX_ERROR = "حداکثر 14 هم تیمی میتونی اضافه کنی.";
+
+export function serializeFriends(friends: Friend[]): string {
+  return friends
+    .map((f) => ({
+      fullName: normalizeText(typeof f?.fullName === "string" ? f.fullName : ""),
+      schoolName: normalizeText(typeof f?.schoolName === "string" ? f.schoolName : ""),
+    }))
+    .filter((f) => f.fullName.length > 0 && f.schoolName.length > 0)
+    .map((f) => `${f.fullName} : ${f.schoolName}`)
+    .join(", ");
+}
 
 export function serializeMultiSelect(selected: string[], options: string[]): string {
   const order = new Map(options.map((option, index) => [option, index]));
@@ -345,6 +359,41 @@ export function validateAboutYourself(raw: unknown): string | undefined {
   return undefined;
 }
 
+export function validateFriendItem(raw: unknown): FriendErrors {
+  if (typeof raw !== "object" || raw === null) {
+    return {
+      fullName: validateFullName(""),
+      schoolName: validateSchoolName(""),
+    };
+  }
+  const record = raw as Record<string, unknown>;
+  const fullName = typeof record.fullName === "string" ? record.fullName : "";
+  const schoolName = typeof record.schoolName === "string" ? record.schoolName : "";
+  const next: FriendErrors = {};
+  const fullNameError = validateFullName(fullName);
+  if (fullNameError !== undefined) {
+    next.fullName = fullNameError;
+  }
+  const schoolError = validateSchoolName(schoolName);
+  if (schoolError !== undefined) {
+    next.schoolName = schoolError;
+  }
+  return next;
+}
+
+export function validateFriends(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null) {
+    return undefined;
+  }
+  if (!Array.isArray(raw)) {
+    return "اطلاعات هم تیمی ها معتبر نیست.";
+  }
+  if (raw.length > MAX_FRIENDS) {
+    return FRIENDS_MAX_ERROR;
+  }
+  return undefined;
+}
+
 export function validateLeadForm(v: LeadFormValues): LeadFormErrors {
   const next: LeadFormErrors = {};
   const fullNameError = validateFullName(v.fullName);
@@ -386,6 +435,16 @@ export function validateLeadForm(v: LeadFormValues): LeadFormErrors {
   const aboutError = validateAboutYourself(v.aboutYourself);
   if (aboutError !== undefined) {
     next.aboutYourself = aboutError;
+  }
+  const friendsError = validateFriends(v.friends);
+  if (friendsError !== undefined) {
+    next.friends = friendsError;
+  }
+  if (Array.isArray(v.friends) && v.friends.length > 0) {
+    const items: FriendErrors[] = v.friends.map((f) => validateFriendItem(f));
+    if (items.some((item) => item.fullName !== undefined || item.schoolName !== undefined)) {
+      next.friendItems = items;
+    }
   }
   return next;
 }

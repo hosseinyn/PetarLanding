@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BadgeCheck, ChevronDown, PartyPopper, Rocket, Sparkles, Star } from "lucide-react";
+import { BadgeCheck, ChevronDown, PartyPopper, Plus, Rocket, Sparkles, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { leadImage } from "@/lib/landing-data";
@@ -37,11 +37,12 @@ const benefits = [
   },
 ];
 
-import type { LeadFormErrors, LeadFormValues } from "@/types/lead";
+import type { Friend, LeadFormErrors, LeadFormValues } from "@/types/lead";
 
 import {
   ABOUT_MAX_LENGTH,
   FULL_NAME_MAX_LENGTH,
+  MAX_FRIENDS,
   MESSAGE_MAX_LENGTH,
   SCHOOL_NAME_MAX_LENGTH,
   freeTimeActivityOptions,
@@ -75,6 +76,7 @@ const fieldIds: Record<keyof LeadFormValues, string> = {
   competitionRating: "lead-competition",
   freeTimeActivities: "lead-activities",
   aboutYourself: "lead-about",
+  friends: "lead-friends",
 };
 
 const inputClassName =
@@ -109,12 +111,14 @@ export default function LeadForm() {
     competitionRating: "",
     freeTimeActivities: [],
     aboutYourself: "",
+    friends: [],
   });
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const reduce = useReducedMotion();
@@ -135,7 +139,7 @@ export default function LeadForm() {
     return () => clearTimeout(timer);
   }, [celebrate]);
 
-  const update = (key: keyof LeadFormValues, value: string | number | string[]) => {
+  const update = (key: keyof LeadFormValues, value: string | number | string[] | Friend[]) => {
     setValues((prev) => ({ ...prev, [key]: value }) as LeadFormValues);
     setErrors((prev) => {
       if (prev[key] === undefined) {
@@ -154,6 +158,78 @@ export default function LeadForm() {
     return validateLeadForm(v);
   };
 
+  const addFriend = () => {
+    if (values.friends.length >= MAX_FRIENDS) {
+      return;
+    }
+    setValues((prev) => ({
+      ...prev,
+      friends: [...prev.friends, { fullName: "", schoolName: "" }],
+    }));
+    setErrors((prev) => {
+      if (prev.friends === undefined && prev.friendItems === undefined) {
+        return prev;
+      }
+      const next = { ...prev };
+      delete next.friends;
+      return next;
+    });
+  };
+
+  const updateFriend = (index: number, key: keyof Friend, value: string) => {
+    setValues((prev) => ({
+      ...prev,
+      friends: prev.friends.map((f, i) => (i === index ? { ...f, [key]: value } : f)),
+    }));
+    setErrors((prev) => {
+      if (prev.friendItems === undefined) {
+        return prev;
+      }
+      const nextItems = [...prev.friendItems];
+      const current = nextItems[index];
+      if (current === undefined) {
+        return prev;
+      }
+      const updated = { ...current };
+      delete updated[key];
+      if (Object.keys(updated).length === 0) {
+        nextItems.splice(index, 1);
+      } else {
+        nextItems[index] = updated;
+      }
+      const next = { ...prev };
+      if (nextItems.some((item) => item.fullName !== undefined || item.schoolName !== undefined)) {
+        next.friendItems = nextItems;
+      } else {
+        delete next.friendItems;
+      }
+      return next;
+    });
+  };
+
+  const removeFriend = (index: number) => {
+    setValues((prev) => ({
+      ...prev,
+      friends: prev.friends.filter((_, i) => i !== index),
+    }));
+    setErrors((prev) => {
+      if (prev.friendItems === undefined && prev.friends === undefined) {
+        return prev;
+      }
+      const next = { ...prev };
+      delete next.friends;
+      if (next.friendItems !== undefined) {
+        const nextItems = next.friendItems.filter((_, i) => i !== index);
+        if (nextItems.some((item) => item.fullName !== undefined || item.schoolName !== undefined)) {
+          next.friendItems = nextItems;
+        } else {
+          delete next.friendItems;
+        }
+      }
+      return next;
+    });
+  };
+
   const toggleMulti = (key: "traits" | "freeTimeActivities", option: string) => {
     const current = values[key];
     update(
@@ -165,6 +241,9 @@ export default function LeadForm() {
   };
 
   const blurField = (key: keyof LeadFormValues) => {
+    if (key === "friends") {
+      return;
+    }
     let error: string | undefined;
     if (key === "fullName") {
       error = validateFullName(values.fullName);
@@ -198,6 +277,38 @@ export default function LeadForm() {
     });
   };
 
+  const blurFriend = (index: number, key: keyof Friend) => {
+    const friend = values.friends[index];
+    if (friend === undefined) {
+      return;
+    }
+    const error =
+      key === "fullName"
+        ? validateFullName(friend.fullName)
+        : validateSchoolName(friend.schoolName);
+    setErrors((prev) => {
+      const next = { ...prev };
+      const items: { fullName?: string; schoolName?: string }[] = [...(next.friendItems ?? [])];
+      while (items.length <= index) {
+        items.push({});
+      }
+      const current = items[index] ?? {};
+      const updated = { ...current };
+      if (error === undefined) {
+        delete updated[key];
+      } else {
+        updated[key] = error;
+      }
+      items[index] = updated;
+      if (items.some((item) => item.fullName !== undefined || item.schoolName !== undefined)) {
+        next.friendItems = items;
+      } else {
+        delete next.friendItems;
+      }
+      return next;
+    });
+  };
+
   const focusFirstError = (next: LeadFormErrors) => {
     const order: (keyof LeadFormValues)[] = [
       "fullName",
@@ -210,11 +321,25 @@ export default function LeadForm() {
       "competitionRating",
       "freeTimeActivities",
       "aboutYourself",
+      "friends",
     ];
     for (const key of order) {
       if (next[key] !== undefined) {
         document.getElementById(fieldIds[key])?.focus();
         break;
+      }
+    }
+    if (next.friendItems !== undefined) {
+      const index = next.friendItems.findIndex(
+        (item) => item.fullName !== undefined || item.schoolName !== undefined
+      );
+      if (index >= 0) {
+        const item = next.friendItems[index];
+        const target =
+          item?.fullName !== undefined
+            ? document.getElementById(`lead-friend-${index}-name`)
+            : document.getElementById(`lead-friend-${index}-school`);
+        target?.focus();
       }
     }
   };
@@ -232,8 +357,15 @@ export default function LeadForm() {
         next.competitionRating !== undefined ||
         next.freeTimeActivities !== undefined ||
         next.aboutYourself !== undefined;
+      const friendsError =
+        next.friends !== undefined || next.friendItems !== undefined;
+      if (friendsError && !showFriends) {
+        setShowFriends(true);
+      }
       if (moreError && !showMore) {
         setShowMore(true);
+        setTimeout(() => focusFirstError(next), 350);
+      } else if (friendsError && !showFriends) {
         setTimeout(() => focusFirstError(next), 350);
       } else {
         focusFirstError(next);
@@ -243,6 +375,10 @@ export default function LeadForm() {
     const normalizedName = normalizeText(values.fullName);
     const normalizedSchool = normalizeText(values.schoolName);
     const normalizedPhone = normalizePhone(values.phone);
+    const normalizedFriends = values.friends.map((f) => ({
+      fullName: normalizeText(f.fullName),
+      schoolName: normalizeText(f.schoolName),
+    }));
     const roleLabel =
       roleOptions.find((o) => o.value === values.role)?.label ?? values.role;
     const gradeLabel = gradePayloadLabels[values.grade] ?? values.grade;
@@ -262,6 +398,7 @@ export default function LeadForm() {
           competitionRating: values.competitionRating,
           freeTimeActivities: values.freeTimeActivities,
           aboutYourself: values.aboutYourself.trim(),
+          friends: normalizedFriends,
         }),
       });
       let data: { success?: boolean; error?: string } = {};
@@ -291,6 +428,7 @@ export default function LeadForm() {
         competitionRating: values.competitionRating,
         freeTimeActivities: values.freeTimeActivities,
         aboutYourself: values.aboutYourself.trim(),
+        friends: normalizedFriends,
       });
       setDone(true);
       if (reduce !== true) {
@@ -407,6 +545,11 @@ export default function LeadForm() {
                   <motion.form
                     key="form"
                     onSubmit={submit}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && (e.target as HTMLElement | null)?.tagName === "INPUT") {
+                        e.preventDefault();
+                      }
+                    }}
                     noValidate
                     aria-label="فرم پیش ثبت نام"
                     exit={reduce === true ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
@@ -784,6 +927,149 @@ export default function LeadForm() {
                                     </p>
                                   )}
                                 </div>
+                              </div>
+                            </motion.div>
+                          ) : null}
+                        </AnimatePresence>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowFriends((s) => !s)}
+                          aria-expanded={showFriends}
+                          aria-controls="lead-friends"
+                          className="inline-flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-[10px] border border-gray-200 bg-sky-50 px-4 py-3 text-sm font-medium transition duration-700 hover:border-sky-400 hover:text-sky-700 focus:outline-none"
+                        >
+                          <span className="flex flex-col items-start gap-1 text-right">
+                            <span>اگر مسابقه برگزار کردیم، دوست داری با کی تیم بشی؟</span>
+                            <span className="text-xs font-normal text-black/60">
+                              اختیاریه. اگه خواستی هم تیمی هات رو معرفی کن
+                            </span>
+                          </span>
+                          <motion.span
+                            aria-hidden="true"
+                            animate={{ rotate: showFriends ? 180 : 0 }}
+                            transition={{ duration: 0.25, ease: EASE }}
+                            className="grid shrink-0 place-items-center"
+                          >
+                            <ChevronDown className="size-5" strokeWidth={1.8} />
+                          </motion.span>
+                        </button>
+                        <AnimatePresence initial={false}>
+                          {showFriends ? (
+                            <motion.div
+                              key="lead-friends-panel"
+                              id="lead-friends"
+                              initial={reduce === true ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                              animate={reduce === true ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                              exit={reduce === true ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                              transition={{ duration: 0.3, ease: EASE }}
+                              className="overflow-hidden"
+                            >
+                              <div className="flex flex-col gap-4 pt-4">
+                                <p className="text-sm leading-7 text-black/60">
+                                  هم تیمی تو میتونه هرکسی باشه، دوست، فامیل یا هرچی. اصلا مدرسه یا پایه مهم نیست، فقط دانش آموز بین هفتم تا دوازدهم باشه. حتی میتونه کاملا از یه شهر دیگه باشه، ولی شهرشو در اسم مدرسه بنویس
+                                </p>
+                                {values.friends.length === 0 ? (
+                                  <p className="rounded-[10px] border border-dashed border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-7 text-black/60">
+                                    هنوز کسی رو اضافه نکردی. اگه دوست داری با دکمه زیر یه هم تیمی اضافه کن، اگه نه همینجوری ثبت کن.
+                                  </p>
+                                ) : (
+                                  <div className="flex flex-col gap-3">
+                                    {values.friends.map((friend, index) => {
+                                      const itemError = errors.friendItems?.[index];
+                                      return (
+                                        <div
+                                          key={index}
+                                          className="flex flex-col gap-3 rounded-[10px] border border-gray-200 bg-gray-50/60 p-4"
+                                        >
+                                          <div className="flex items-center justify-between gap-2">
+                                            <span className="text-sm font-medium">هم تیمی {index + 1}</span>
+                                            <button
+                                              type="button"
+                                              onClick={() => removeFriend(index)}
+                                              aria-label={`حذف هم تیمی ${index + 1}`}
+                                              className="inline-flex min-h-9 cursor-pointer items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs text-black/60 transition duration-300 hover:border-red-300 hover:text-red-600 focus:outline-none"
+                                            >
+                                              <Trash2 className="size-4" strokeWidth={1.8} />
+                                              حذف
+                                            </button>
+                                          </div>
+                                          <div className="flex flex-col gap-2">
+                                            <label htmlFor={`lead-friend-${index}-name`} className="text-sm font-medium">
+                                              نام و نام خانوادگی
+                                            </label>
+                                            <input
+                                              id={`lead-friend-${index}-name`}
+                                              name={`friends[${index}].fullName`}
+                                              type="text"
+                                              autoComplete="off"
+                                              maxLength={FULL_NAME_MAX_LENGTH}
+                                              placeholder="مثلا حسین حسینی"
+                                              value={friend.fullName}
+                                              onChange={(e) => updateFriend(index, "fullName", e.target.value)}
+                                              onBlur={() => blurFriend(index, "fullName")}
+                                              aria-invalid={itemError?.fullName !== undefined}
+                                              aria-describedby={itemError?.fullName !== undefined ? `lead-friend-${index}-name-error` : undefined}
+                                              className={`${inputClassName} ${itemError?.fullName !== undefined ? errorInputClassName : ""}`}
+                                            />
+                                            {itemError?.fullName !== undefined ? (
+                                              <p id={`lead-friend-${index}-name-error`} role="alert" className="text-sm text-red-600">
+                                                {itemError.fullName}
+                                              </p>
+                                            ) : null}
+                                          </div>
+                                          <div className="flex flex-col gap-2">
+                                            <label htmlFor={`lead-friend-${index}-school`} className="text-sm font-medium">
+                                              نام مدرسه
+                                            </label>
+                                            <input
+                                              id={`lead-friend-${index}-school`}
+                                              name={`friends[${index}].schoolName`}
+                                              type="text"
+                                              autoComplete="off"
+                                              maxLength={SCHOOL_NAME_MAX_LENGTH}
+                                              placeholder="مثلا دبیرستان نمونه تهران"
+                                              value={friend.schoolName}
+                                              onChange={(e) => updateFriend(index, "schoolName", e.target.value)}
+                                              onBlur={() => blurFriend(index, "schoolName")}
+                                              aria-invalid={itemError?.schoolName !== undefined}
+                                              aria-describedby={itemError?.schoolName !== undefined ? `lead-friend-${index}-school-error` : undefined}
+                                              className={`${inputClassName} ${itemError?.schoolName !== undefined ? errorInputClassName : ""}`}
+                                            />
+                                            {itemError?.schoolName !== undefined ? (
+                                              <p id={`lead-friend-${index}-school-error`} role="alert" className="text-sm text-red-600">
+                                                {itemError.schoolName}
+                                              </p>
+                                            ) : null}
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                                {errors.friends !== undefined ? (
+                                  <p role="alert" className="text-sm text-red-600">
+                                    {errors.friends}
+                                  </p>
+                                ) : null}
+                                {values.friends.length >= MAX_FRIENDS ? (
+                                  <p className="text-sm leading-7 text-black/60">
+                                    به حداکثر 14 هم تیمی رسیدی.
+                                  </p>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={addFriend}
+                                    className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-[10px] border border-dashed border-sky-300 bg-white px-4 py-2.5 text-sm font-medium text-sky-700 transition duration-300 hover:border-sky-500 hover:bg-sky-50 focus:outline-none"
+                                  >
+                                    <Plus className="size-5" strokeWidth={1.8} />
+                                    افزودن هم تیمی
+                                    <span className="text-xs font-normal text-black/50">
+                                      {values.friends.length}/{MAX_FRIENDS}
+                                    </span>
+                                  </button>
+                                )}
                               </div>
                             </motion.div>
                           ) : null}

@@ -1,11 +1,12 @@
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
-import type { LeadFormValues as LeadFormData } from "@/types/lead";
+import type { Friend, LeadFormValues as LeadFormData } from "@/types/lead";
 import {
   freeTimeActivityOptions,
   leadCodesFromPayload,
   normalizePhone,
   normalizeText,
+  serializeFriends,
   serializeMultiSelect,
   traitOptions,
   validateLeadForm,
@@ -22,6 +23,7 @@ const GOOGLE_FORM_ENTRY_IDS = {
   competitionRating: "entry.803475269",
   freeTimeActivities: "entry.2101516121",
   aboutYourself: "entry.213502875",
+  friends: "entry.2135576298",
 } as const;
 
 const INVALID_MESSAGE = "اطلاعات فرم معتبر نیست. دوباره تلاش کن.";
@@ -156,6 +158,25 @@ function readCompetitionRating(value: unknown): number | "" {
     : "";
 }
 
+function readFriends(value: unknown): Friend[] {
+  if (value === undefined || value === null) {
+    return [];
+  }
+  if (!Array.isArray(value)) {
+    return value as unknown as Friend[];
+  }
+  return value.map((item) => {
+    if (typeof item !== "object" || item === null) {
+      return { fullName: "", schoolName: "" };
+    }
+    const record = item as Record<string, unknown>;
+    return {
+      fullName: typeof record.fullName === "string" ? record.fullName : "",
+      schoolName: typeof record.schoolName === "string" ? record.schoolName : "",
+    };
+  });
+}
+
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
   if (origin === null || !allowedOrigins().includes(origin)) {
@@ -202,6 +223,7 @@ export async function POST(request: Request) {
     competitionRating: body.competitionRating ?? "",
     freeTimeActivities: body.freeTimeActivities ?? "",
     aboutYourself: body.aboutYourself ?? "",
+    friends: readFriends(body.friends),
   } as LeadFormData;
 
   const errors = validateLeadForm(leadCodesFromPayload(candidate));
@@ -223,6 +245,10 @@ export async function POST(request: Request) {
     competitionRating: readCompetitionRating(candidate.competitionRating),
     freeTimeActivities: readStringArray(candidate.freeTimeActivities),
     aboutYourself: readString(candidate.aboutYourself),
+    friends: (Array.isArray(candidate.friends) ? candidate.friends : []).map((f) => ({
+      fullName: normalizeText(typeof f?.fullName === "string" ? f.fullName : ""),
+      schoolName: normalizeText(typeof f?.schoolName === "string" ? f.schoolName : ""),
+    })),
   };
 
   try {
@@ -280,6 +306,11 @@ export async function POST(request: Request) {
     formParams.append(
       GOOGLE_FORM_ENTRY_IDS.aboutYourself,
       normalizeText(values.aboutYourself)
+    );
+
+    formParams.append(
+      GOOGLE_FORM_ENTRY_IDS.friends,
+      serializeFriends(values.friends)
     );
 
     const response = await fetch(GOOGLE_FORM_URL, {
