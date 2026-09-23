@@ -1,7 +1,4 @@
-"use client";
-
-import { useRef, type CSSProperties } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import type { CSSProperties } from "react";
 import {
   BatteryMedium,
   BellRing,
@@ -18,9 +15,9 @@ import {
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { EASE } from "@/lib/motion";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { PauseOffscreen } from "@/components/ui/PauseOffscreen";
+import { PhoneProgress, PhoneVisual } from "@/components/landing/PhoneVisual";
 import { LEAD_FORM_HREF } from "@/lib/site";
 
 const bullets = [
@@ -86,13 +83,7 @@ function AppScreen() {
           <span className="rounded-full bg-sky-400 px-2 py-0.5 text-[8px] font-medium text-white">ادامه بده</span>
         </div>
         <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white" aria-hidden="true">
-          <motion.span
-            initial={{ width: "5%" }}
-            whileInView={{ width: "68%" }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 1.4, ease: EASE, delay: 0.3 }}
-            className="block h-full rounded-full bg-sky-400"
-          />
+          <PhoneProgress />
         </div>
       </div>
       <div className="mt-auto flex items-center justify-around border-t border-gray-200 pt-2" aria-hidden="true">
@@ -106,14 +97,6 @@ function AppScreen() {
 }
 
 export default function PhoneMockup() {
-  const reduce = useReducedMotion();
-  const visualRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: visualRef,
-    offset: ["start end", "end start"],
-  });
-  const drift = useTransform(scrollYProgress, [0, 1], [28, -28]);
-
   return (
     <section id="app" aria-label="اپلیکیشن موبایل پلتفرم تدریس اسلامی رستادی" className="scroll-mt-24 overflow-hidden border-t border-gray-200 bg-green-50">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
@@ -154,16 +137,7 @@ export default function PhoneMockup() {
             </div>
           </Reveal>
         </Reveal>
-        <motion.div
-          ref={visualRef}
-          initial={reduce === true ? false : { opacity: 0, y: 48, rotate: 2 }}
-          whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="relative mx-auto w-fit"
-          aria-hidden="true"
-        >
-        <motion.div style={reduce === true ? undefined : { y: drift }}>
+        <PhoneVisual>
           <PauseOffscreen>
           <span className="anim-float absolute -right-6 top-16 z-10 hidden rounded-[10px] border border-gray-200 bg-white px-3 py-2 text-xs font-medium sm:block">
             نشان کوثر گرفتی!
@@ -183,8 +157,7 @@ export default function PhoneMockup() {
             </div>
           </TiltCard>
           </PauseOffscreen>
-        </motion.div>
-        </motion.div>
+        </PhoneVisual>
       </div>
     </section>
   );

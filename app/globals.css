@@ -1,16 +1,8 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Estedad';
-  src: url('/fonts/Estedad.woff2') format('woff2');
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --font-sans: "Estedad", "Segoe UI", Arial, sans-serif;
-  --font-latin: "Estedad", "Segoe UI", Arial, sans-serif;
+  --font-sans: "estedad", "estedad Fallback", "Segoe UI", Arial, sans-serif;
+  --font-latin: "estedad", "estedad Fallback", "Segoe UI", Arial, sans-serif;
 }
 
 html {
@@ -104,7 +96,7 @@ body {
 }
 
 .Toastify__toast-container {
-  --toastify-font-family: "Estedad", "Segoe UI", Arial, sans-serif;
+  --toastify-font-family: "estedad", "estedad Fallback", "Segoe UI", Arial, sans-serif;
 }
 
 ::selection {

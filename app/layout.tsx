@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import ClarityProvider from "@/components/analytics/ClarityProvider";
 import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+
+const estedad = localFont({
+  src: "../public/fonts/Estedad.woff2",
+  variable: "--font-estedad",
+  weight: "400 700",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "پلتفرم تدریس اسلامی رستادی | قرآن رو بخون، بفهم، زندگی کن",
@@ -29,17 +37,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl">
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/Estedad.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body
-        className={`min-h-screen flex flex-col bg-white text-black antialiased`}
+        className={`${estedad.variable} min-h-screen flex flex-col bg-white text-black antialiased`}
       >
         <SmoothScroll>{children}</SmoothScroll>
 

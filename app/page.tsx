@@ -14,7 +14,7 @@ import CampaignBanner from "@/components/landing/CampaignBanner";
 import Footer from "@/components/landing/Footer";
 
 const PhoneMockup = dynamic(() => import("@/components/landing/PhoneMockup"));
-const LeadForm = dynamic(() => import("@/components/landing/LeadForm"));
+const LeadSection = dynamic(() => import("@/components/landing/LeadSection"));
 const FAQ = dynamic(() => import("@/components/landing/FAQ"));
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
           <Paths />
         <CampaignBanner />
         <PhoneMockup />
-        <LeadForm />
+        <LeadSection />
         <FAQ />
         </main>
         <Footer />

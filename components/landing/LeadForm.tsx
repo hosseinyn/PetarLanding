@@ -3,39 +3,17 @@
 import { useEffect, useState, type FormEvent } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BadgeCheck, ChevronDown, PartyPopper, Plus, Rocket, Sparkles, Star, Trash2 } from "lucide-react";
+import { ChevronDown, PartyPopper, Plus, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { leadImage } from "@/lib/landing-data";
-import Reveal from "@/components/ui/Reveal";
-import Pill from "@/components/ui/Pill";
 import HeadlineEmoji from "@/components/ui/HeadlineEmoji";
 import { EASE } from "@/lib/motion";
-import { ParallaxPhoto } from "@/components/ui/ParallaxPhoto";
 
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 const ToastContainer = dynamic(
   () => import("react-toastify").then((m) => m.ToastContainer),
   { ssr: false }
 );
-
-const benefits = [
-  {
-    icon: Rocket,
-    title: "شروع رایگان",
-    text: "چند تجربه اول کاملا رایگانه. بدون پرداخت و بدون تعهد.",
-  },
-  {
-    icon: Sparkles,
-    title: "قدم به قدم",
-    text: "از آیه شروع میکنی و قدم به قدم به زندگی خودت میرسی.",
-  },
-  {
-    icon: BadgeCheck,
-    title: "محتوای بررسی شده",
-    text: "همه تجربه ها رو تیم پلتفرم تدریس اسلامی رستادی طراحی و تایید کرده. خیالت راحت.",
-  },
-];
 
 import type { Friend, LeadFormErrors, LeadFormValues } from "@/types/lead";
 
@@ -458,7 +436,7 @@ export default function LeadForm() {
     hoverRating ?? (values.competitionRating === "" ? 0 : values.competitionRating);
 
   return (
-    <section id="lead" className="scroll-mt-24 border-t border-gray-200">
+    <>
       <ToastContainer position="top-right" autoClose={5000} closeOnClick pauseOnHover rtl theme="light" />
       {celebrate && windowSize.width > 0 ? (
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
@@ -470,48 +448,7 @@ export default function LeadForm() {
           />
         </div>
       ) : null}
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
-        <div className="grid items-stretch gap-5 lg:grid-cols-2">
-          <Reveal className="h-full">
-            <div className="flex h-full flex-col justify-center gap-6 border border-gray-200 bg-sky-50 p-6 sm:p-8 card-r-lg">
-              <ParallaxPhoto
-                src={leadImage.src}
-                alt={leadImage.alt}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                frameClassName="h-44 rounded-[10px] bg-sky-100"
-              />
-              <div>
-                <Pill className="w-fit bg-sky-400 font-medium text-white">
-                  بزن بریم
-                </Pill>
-                <h2 className="mt-4 text-3xl font-semibold leading-snug">
-                  <HeadlineEmoji name="student" /> اولین تجربه ات رو
-                  <br />
-                  پیش ثبت نام کن
-                </h2>
-                <p className="mt-3 leading-8 text-black/60">
-                  فرم رو پر کن تا جزو اولین نفرهایی باشی که پتار رو تجربه
-                  میکنن. کمتر از دو دقیقه طول میکشه.
-                </p>
-              </div>
-              <ul className="flex flex-col gap-5">
-                {benefits.map((b) => (
-                  <li key={b.title} className="flex items-start gap-3">
-                    <span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-[10px] border border-gray-200 bg-white">
-                      <b.icon className="size-5 text-sky-600" strokeWidth={1.8} />
-                    </span>
-                    <span>
-                      <span className="block font-semibold">{b.title}</span>
-                      <span className="block text-sm leading-7 text-black/60">{b.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={100} className="h-full">
-            <div className="flex h-full flex-col justify-center border border-gray-200 bg-white p-8 sm:p-10 card-r-md">
-              <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait" initial={false}>
                 {done ? (
                   <motion.div
                     key="done"
@@ -1091,10 +1028,6 @@ export default function LeadForm() {
                   </motion.form>
                 )}
               </AnimatePresence>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
+    </>
   );
 }
